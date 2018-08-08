@@ -1,0 +1,35 @@
+<div id="slide-out" class="side-nav sn-bg-4 fixed">
+    <ul class="custom-scrollbar">
+        <li>
+            <div class="logo-wrapper waves-light">
+                <a routerLink="/home"><h1 class="logo">Rute.Ar</h1></a>
+            </div>
+        </li>
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li><a routerLink="./userList" class="collapsible-header waves-effect arrow-r">Listado usuarios</a></li>
+                <li><a class="collapsible-header waves-effect arrow-r">Actividades<i class="fa fa-angle-down rotate-icon"></i></a>
+                    <div class="collapsible-body">
+                        <ul class="list-unstyled">
+                            <li><a routerLink="" class="waves-effect">Listado actividades</a>
+                            </li>
+                            <li><a routerLink="" class="waves-effect">Agregar actividad</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="sidenav-bg mask-strong"></div>
+</div>
+
+// SideNav Initialization
+<script>
+$(".button-collapse").sideNav();
+new WOW().init();
+</script>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
