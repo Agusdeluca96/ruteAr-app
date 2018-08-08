@@ -15,6 +15,7 @@ export class RegisterFormComponent implements OnInit {
     msjExito = '';
     user = new User('','','','','','','','','', '');
     submitted = false;
+    sexos = ['MASCULINO', 'FEMENINO', 'OTRO'];
 
     onSubmit(form) {
       this.submitted = true;

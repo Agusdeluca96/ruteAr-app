@@ -1,4 +1,3 @@
-
 <!--Top Table UI-->
 <div class="card card-cascade narrower p-2">
     <div class="px-6">
@@ -16,6 +15,7 @@
                         <th>Email</th>
                         <th>Domicilio</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <!--Table head-->
@@ -29,6 +29,7 @@
                         <td>{{ user.fechaNacimiento }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.domicilio }}</td>
+                        <td><button class="btn btn-info" (click)="open(content, user)">Detalle</button></td>
                         <td *ngIf="user.habilitado == true"><button type="button" class="btn btn-danger" name="deshabilitar" (click)="deshabilitar(user)">Deshabilitar</button></td>
                         <td *ngIf="user.habilitado == false"><button type="button" class="btn btn-success" name="habilitar" (click)="habilitar(user)">Habilitar</button></td>
                     </tr>
@@ -39,3 +40,24 @@
         </div>
     </div>
 </div>
+
+<!-- Modal con detalle del usuario -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h3 class="modal-title"><b>Detalles del Usuario</b></h3>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p><b>Nombre completo:</b> {{ userDetail.nombre }} {{ userDetail.apellido }}</p>
+        <p><b>Usuario:</b> {{ userDetail.usuario }}</p>
+        <p><b>Email:</b> {{ userDetail.email }}</p>
+        <p><b>Fecha de Nacimento:</b> {{ userDetail.fechaNacimiento }}</p>
+        <p><b>Domicilio:</b> {{ userDetail.domicilio }}</p>
+        <p><b>Sexo:</b> {{ userDetail.sexo }}</p>
+        <p *ngIf="userDetail.habilitado == true"><b>Estado:</b> Habilitado</p>
+        <p *ngIf="userDetail.habilitado == false"><b>Estado:</b> Deshabilitado</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="c('Close click')">Cerrar</button>
+    </div>
+</ng-template>

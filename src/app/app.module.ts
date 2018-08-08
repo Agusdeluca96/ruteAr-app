@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'ng-select';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +35,8 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SelectModule
+    SelectModule,
+    NgbModule.forRoot()
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

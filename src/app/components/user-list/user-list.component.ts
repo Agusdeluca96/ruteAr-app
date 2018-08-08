@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../../model/user';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  providers: [ UserService ],
+  providers: [ UserService, NgbModal],
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
 
+    closeResult: string;
     users: User[];
-    editUser: User;
+    userDetail: User;
 
-    constructor(private userService: UserService) { }
+    constructor(private modalService: NgbModal, private userService: UserService) { }
 
     ngOnInit() {
         this.getUsers();
@@ -33,14 +35,8 @@ export class UserListComponent implements OnInit {
         console.log(user);
     }
 
-    // add(name: string): void {
-    //     this.editUser = undefined; name = name.trim();
-    //
-    //     if (!name) {
-    //         return;
-    //     }
-    //
-    //     // The server will generate the id for this new hero
-    //     const newUser: User = { name } as User; this.usersService.addUser(newUser).subscribe(hero => this.users.push(hero));
-    // }
+    open(content, user) {
+        this.userDetail = user;
+        this.modalService.open(content, { centered: true });
+    }
 }
