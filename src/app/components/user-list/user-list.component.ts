@@ -11,7 +11,7 @@ import { UserService } from '../../services/user.service';
 })
 export class UserListComponent implements OnInit {
 
-    closeResult: string;
+    // closeResult: string;
     users: User[];
     userDetail: User;
 

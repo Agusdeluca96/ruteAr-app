@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Services
 import { UserService } from './services/user.service';
+import { ActividadService } from './services/actividad.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -19,6 +20,8 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { ActividadListComponent } from './components/actividad-list/actividad-list.component';
+import { ActividadNewComponent } from './components/actividad-new/actividad-new.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     UserHomeComponent,
     RegisterComponent,
     UserListComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    ActividadListComponent,
+    ActividadNewComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     SelectModule,
     NgbModule.forRoot()
   ],
-  providers: [UserService],
+  providers: [UserService, ActividadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

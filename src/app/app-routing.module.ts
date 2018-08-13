@@ -5,6 +5,8 @@ import { AdminHomeComponent } from './components/admin-home/admin-home.component
 import { UserHomeComponent} from './components/user-home/user-home.component';
 import { RegisterComponent} from './components/register/register.component';
 import { UserListComponent} from './components/user-list/user-list.component';
+import { ActividadListComponent } from './components/actividad-list/actividad-list.component';
+import { ActividadNewComponent } from './components/actividad-new/actividad-new.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,7 +19,9 @@ const routes: Routes = [
                 path: 'admin',
                 component: AdminHomeComponent,
                 children: [
-                    { path: 'userList', component: UserListComponent },
+                    { path: 'users/list', component: UserListComponent },
+                    { path: 'actividad/list', component: ActividadListComponent },
+                    { path: 'actividad/new', component: ActividadNewComponent },
                 ]
             },
             {

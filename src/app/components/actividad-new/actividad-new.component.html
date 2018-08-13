@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-3 order-md-2 mb-4">
+		</div>
+		<div class="col-md-9 order-md-1">
+			<h2 class="mb-3">Nueva Actividad</h2>
+			<form class="needs-validation" (ngSubmit)="onSubmit(actividadNew)" #actividadNew="ngForm"></form>
+			<form class="needs-validation" novalidate>
+				<div class="row">
+					<div class="col-md-6 mb-3">
+						<label for="nombre">Nombre</label>
+						<input type="text" class="form-control" id="nombre" placeholder="Nombre de la actividad a agregar..." [(ngModel)]="actividad.nombre" name="nombre" required>
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="descripcion">Descripcion</label>
+					<div class="input-group">
+						<textarea rows="3" class="form-control" id="descripcion" placeholder="Descripcion de la actividad a agregar..." [(ngModel)]="actividad.descripcion" name="descripcion" required></textarea>
+					</div>
+				</div>
+				<hr class="mb-4">
+				<button class="btn btn-default btn-lg btn-block" type="submit" [disabled]="!actividadNew.form.valid">Confirmar</button>
+				<br>
+				<p class="font-weight-bold" style="color: green;">{{msjExito}}</p>
+			</form>
+		</div>
+	</div>
+</div>
