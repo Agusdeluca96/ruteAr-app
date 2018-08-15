@@ -4,8 +4,7 @@
 		</div>
 		<div class="col-md-9 order-md-1">
 			<h2 class="mb-3">Nueva Actividad</h2>
-			<form class="needs-validation" (ngSubmit)="onSubmit(actividadNew)" #actividadNew="ngForm"></form>
-			<form class="needs-validation" novalidate>
+			<form class="needs-validation" (ngSubmit)="onSubmit(actividadNew)" #actividadNew="ngForm">
 				<div class="row">
 					<div class="col-md-6 mb-3">
 						<label for="nombre">Nombre</label>
@@ -20,8 +19,6 @@
 				</div>
 				<hr class="mb-4">
 				<button class="btn btn-default btn-lg btn-block" type="submit" [disabled]="!actividadNew.form.valid">Confirmar</button>
-				<br>
-				<p class="font-weight-bold" style="color: green;">{{msjExito}}</p>
 			</form>
 		</div>
 	</div>

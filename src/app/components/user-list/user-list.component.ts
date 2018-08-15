@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../../model/user';
 import { UserService } from '../../services/user.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-list',
@@ -11,7 +12,6 @@ import { UserService } from '../../services/user.service';
 })
 export class UserListComponent implements OnInit {
 
-    // closeResult: string;
     users: User[];
     userDetail: User;
 
@@ -22,17 +22,38 @@ export class UserListComponent implements OnInit {
     }
 
     getUsers(): void {
-        this.userService.getUsers().subscribe(users => this.users = users);
+        this.userService.listAll().subscribe(
+            data => this.users = data,
+            error => swal({
+                type: 'error',
+                title: 'Ha ocurrido un error!',
+                showConfirmButton: false,
+                timer: 2000
+            }));
     }
 
     habilitar(user) {
-        this.userService.habilitarUser(user).subscribe(userResponse => user.habilitado = userResponse.habilitado);
-        console.log(user);
+        this.userService.habilitar(user).subscribe(
+            data => user.habilitado = data.habilitado, 
+            error => swal({
+                type: 'error',
+                title: 'Ha ocurrido un error!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        );
     }
 
     deshabilitar(user) {
-        this.userService.deshabilitarUser(user).subscribe(userResponse => user.habilitado = userResponse.habilitado);
-        console.log(user);
+        this.userService.deshabilitar(user).subscribe(
+            data => user.habilitado = data.habilitado, 
+            error => swal({
+                type: 'error',
+                title: 'Ha ocurrido un error!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        );
     }
 
     open(content, user) {
