@@ -26,6 +26,11 @@ export class UserService {
         return this.http.post<User>('http://localhost:8080/ruteAr/usuario/', user, httpOptions);
     }
 
+    /** POST: add a new user to the database */
+    login(user: User): Observable<User> {
+        return this.http.post<User>('http://localhost:8080/ruteAr/usuario/login', user, httpOptions);
+    }
+
     /** PUT: modify attr 'habilitado' from false to true of an user in the database */
     habilitar (user: User): Observable<User> {
         const url = 'http://localhost:8080/ruteAr/usuario/'.concat(user.id.toString(), '/habilitar');

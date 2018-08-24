@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <h2 class="mb-3">Modificar Actividad</h2>
+      <form class="needs-validation" (ngSubmit)="onSubmit(actividadUpdate)" #actividadUpdate="ngForm">
+        <div class="mb-3">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" ng-value="actividad.nombre" [(ngModel)]="actividad.nombre"
+            name="nombre" required>
+        </div>
+        <div class="mb-3">
+          <label for="descripcion">Descripcion</label>
+          <div class="input-group">
+            <textarea rows="3" class="form-control" id="descripcion" ng-value="actividad.descripcion" [(ngModel)]="actividad.descripcion"
+              name="descripcion" required></textarea>
+          </div>
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-default btn-lg btn-block" type="submit" [disabled]="!actividadUpdate.form.valid">Confirmar</button>
+      </form>
+    </div>
+  </div>
+</div>

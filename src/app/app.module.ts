@@ -15,13 +15,14 @@ import { ActividadService } from './services/actividad.service';
 // Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { ActividadListComponent } from './components/actividad-list/actividad-list.component';
 import { ActividadNewComponent } from './components/actividad-new/actividad-new.component';
+import { ActividadUpdateComponent } from './components/actividad-update/actividad-update.component';
 
 @NgModule({
   declarations: [
@@ -31,9 +32,10 @@ import { ActividadNewComponent } from './components/actividad-new/actividad-new.
     UserHomeComponent,
     RegisterComponent,
     UserListComponent,
-    RegisterFormComponent,
     ActividadListComponent,
-    ActividadNewComponent
+    ActividadNewComponent,
+    LoginComponent,
+    ActividadUpdateComponent
   ],
   imports: [
     BrowserModule,

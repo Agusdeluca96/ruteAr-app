@@ -64,4 +64,8 @@ export class ActividadListComponent implements OnInit {
             }
         });
     }
+    
+    update(actividad) {
+        this.router.navigate(['home/admin/actividad/update', actividad.id])
+    }
 }
