@@ -6,17 +6,15 @@
     </div>
     <ul class="nav navbar-nav nav-flex-icons ml-auto">
         <li class="nav-item active">
-            <a class="nav-link" routerLink="./register">Registro</a>
+            <a class="nav-link" routerLink="./register" *ngIf="!currentUser">Registro</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="./login">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="./home/admin">Home Administrador</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="./home/user">Home Usuario</a>
+            <a class="nav-link" routerLink="./login">
+                <span *ngIf="!currentUser">Login</span>
+                <span *ngIf="currentUser">Logout</span>
+            </a>
         </li>
     </ul>
 </nav>
+
 <router-outlet></router-outlet>

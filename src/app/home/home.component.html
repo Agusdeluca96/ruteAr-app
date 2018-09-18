@@ -1,0 +1,46 @@
+<div id="slide-out" class="side-nav sn-bg-4 fixed">
+    <ul class="custom-scrollbar">
+        <li>
+            <div class="logo-wrapper waves-light">
+                <a routerLink="/home">
+                    <h1 class="logo">Rute.Ar</h1>
+                </a>
+            </div>
+        </li>
+        <li *ngIf="currentUser">
+            <!-- Sidebar Usuario Basico -->
+            <ul class="collapsible collapsible-accordion" *ngIf="currentUser.rol.descripcion === 'Usuario Basico'">
+                <li>
+                    <a routerLink="./ruta/new" class="collapsible-header waves-effect arrow-r">Agregar ruta</a>
+                </li>
+                <li>
+                    <a href="rutasPublicas.html" class="collapsible-header waves-effect arrow-r">Rutas propias</a>
+                </li>
+                <li>
+                    <a href="rutasRecorridas.html" class="collapsible-header waves-effect arrow-r">Rutas recorridas</a>
+                </li>
+                <li>
+                    <a href="rutasPublicas.html" class="collapsible-header waves-effect arrow-r">Descubrir rutas</a>
+                </li>
+            </ul>
+
+            <!-- Sidebar Administrador -->
+            <ul class="collapsible collapsible-accordion" *ngIf="currentUser.rol.descripcion === 'Administrador'">
+                <li>
+                    <a routerLink="./actividad/new" class="collapsible-header waves-effect arrow-r">Agregar actividad</a>
+                </li>
+                <li>
+                    <a routerLink="./actividad/list" class="collapsible-header waves-effect arrow-r">Listado actividades</a>
+                </li>
+                <li>
+                    <a routerLink="./users/list" class="collapsible-header waves-effect arrow-r">Listado usuarios</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="sidenav-bg mask-strong"></div>
+</div>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
