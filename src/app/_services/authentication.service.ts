@@ -1,31 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from '../../../node_modules/rxjs';
+import { User } from '../_models';
+
+const httpOptions = {
+    headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        Authorization: "my-auth-token"
+    })
+};
 
 @Injectable()
 export class AuthenticationService {
-
     constructor(private http: HttpClient) { }
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username: username, password: password })
-            .pipe(map(user => {
+    /** POST: check in the database an user with the username and password passed in the login form */
+    login(user: User): Observable<User> {
+        return this.http.post<User>("http://localhost:8080/ruteAr/usuario/login", user, httpOptions).pipe(
+            map(user => {
                 // login successful if there's a jwt token in the response
-                if (user && user.token) {
+                if (user) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem("currentUser", JSON.stringify(user));
                 }
-
                 return user;
-            }));
+            })
+        );
     }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem("currentUser");
     }
 
     currentUser() {
-        return JSON.parse(localStorage.getItem('currentUser'));
+        return JSON.parse(localStorage.getItem("currentUser"));
     }
 }

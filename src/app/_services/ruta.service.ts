@@ -23,6 +23,7 @@ export class RutaService {
 
     /** POST: add a new Ruta to the database */
     add(ruta: Ruta): Observable<Ruta> {
+        console.log(ruta.actividad.nombre);
         return this.http.post<Ruta>('http://localhost:8080/ruteAr/ruta/', ruta, httpOptions);
     }
 }

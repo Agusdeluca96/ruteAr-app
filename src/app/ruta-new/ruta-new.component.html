@@ -1,116 +1,78 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-3 order-md-2 mb-4">
-        </div>
-        <div class="col-md-9 order-md-1">
+        {{diagnostic}}
+        <div class="col-md-12 order-md-1">
             <h2 class="mb-3">Nueva Ruta</h2>
             <form class="needs-validation" (ngSubmit)="onSubmit(rutaNew)" #rutaNew="ngForm">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Nombre de la ruta a agregar.."[(ngModel)]="ruta.nombre" name="nombre" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" id="nombre" placeholder="Nombre de la ruta a agregar.." [(ngModel)]="ruta.nombre" name="nombre"
+                        required>
                 </div>
                 <div class="mb-3">
                     <label for="descripcion">Descripcion</label>
                     <div class="input-group">
-                        <textarea rows="3" class="form-control" id="descripcion" placeholder="Descripcion de la ruta a agregar..." [(ngModel)]="ruta.nombre" name="nombre" required></textarea>
+                        <textarea rows="3" class="form-control" id="descripcion" placeholder="Descripcion de la ruta a agregar..." [(ngModel)]="ruta.descripcion"
+                            name="descripcion" required></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="country">Privacidad</label>
-                        <div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="privacidad" id="publica" value="option1" checked>
-                                <label class="form-check-label" for="publica">
-                                    Publica</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="privacidad" id="privada" value="option2">
-                                <label class="form-check-label" for="privada">
-                                    Privada
-                                </label>
-                            </div>
-                        </div>
+                        <label for="privacidad">
+                            Privacidad
+                        </label>
+                        <select class="custom-select d-block w-100" id="privacidad" required [(ngModel)]="ruta.privacidad" name="privacidad">
+                            <option *ngFor="let privacidad of privacidades" [value]="privacidad">{{privacidad}}</option>
+                        </select>
+                    </div>
+                
+                    <div class="col-md-4 mb-3">
+                        <label for="formato">
+                            Formato
+                        </label>
+                        <select class="custom-select d-block w-100" id="formato" required [(ngModel)]="ruta.formato" name="formato">
+                            <option *ngFor="let formato of formatos" [value]="formato">{{formato}}</option>
+                        </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="country">Formato</label>
-                        <div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formato" id="soloIda" value="option1" checked>
-                                <label class="form-check-label" for="soloIda">
-                                    Solo ida
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="formato" id="circular" value="option2">
-                                <label class="form-check-label" for="circular">
-                                    Circular
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-check-label" for="dificultad">
+                        <label for="dificultad">
                             Dificultad
                         </label>
-                        <select class="custom-select d-block w-100" id="dificultad" required>
-                            <option value="">Seleccione...</option>
-                            <option>Fácil</option>
-                            <option>Moderado</option>
-                            <option>Difícil</option>
-                            <option>Muy Difícil</option>
-                            <option>Solo Expertos</option>
+                        <select class="custom-select d-block w-100" id="dificultad" required [(ngModel)]="ruta.dificultad" name="dificultad">
+                            <option *ngFor="let dificultad of dificultades" [value]="dificultad">{{dificultad}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="recorrido">Recorrido</label>
-                    <input type="file" class="form-control-file" id="recorrido">
+                    <input type="file" class="form-control-file" id="recorrido" name="recorrido" [(ngModel)]="ruta.recorrido">
                 </div>
-
                 <div class="row">
-                    <div class="col-md-8 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label for="actividad">Actividad</label>
-                        <select class="custom-select d-block w-100" id="actividad" required>
-                            <option value="">Seleccione...</option>
-                            <option>Mountain bike</option>
-                            <option>Ciclismo</option>
-                            <option>Cicloturismo</option>
-                            <option>Senderismo</option>
-                            <option>Carrera por montaña</option>
-                            <option>Alpinismo</option>
-                            <option>Motociclismo</option>
-                            <option>Cuatriciclo</option>
-                            <option>Esquí</option>
-                            <option>Kayac</option>
-                            <option>Vela</option>
-                            <option>A caballo</option>
+                        <select class="custom-select d-block w-100" id="actividad" required [(ngModel)]="ruta.actividad" name="actividad">
+                            <option *ngFor="let actividad of actividades" [value]="actividad.id">{{actividad.nombre}}</option>
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="distancia">Distancia en km</label>
-                        <input type="number" class="form-control" name="distancia" id="distancia" min="0" value="0">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label>Fecha de Realización</label>
-                        <input type="date" name="fecha" max="3000-12-31" min="1000-01-01" class="form-control">
+                        <input type="date" name="fecha" id="fecha" max="3000-12-31" min="1000-01-01" class="form-control" required>
                     </div>
-                    <div class="col-md-5 mb-3">
-                        <label for="tiempo">Tiempo estimado en hs</label>
-                        <input type="number" class="form-control" name="tiempo" min="0" value="0">
+                    <div class="col-md-3 mb-3">
+                        <label for="distancia">Distancia en km</label>
+                        <input type="number" class="form-control" name="distancia" id="distancia" min="0" [(ngModel)]="ruta.distancia" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="tiempo">Tiempo estimado en minutos</label>
+                        <input type="number" class="form-control" name="tiempo" id="tiempo" min="0" [(ngModel)]="ruta.tiempo" required>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="recorrido">Subir fotos</label>
-                    <input type="file" class="form-control-file" id="recorrido">
+                    <label for="fotos">Subir fotos</label>
+                    <input type="file" class="form-control-file" name="fotos" id="fotos" [(ngModel)]="ruta.fotos" required>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-default btn-lg btn-block" type="submit">Confirmar</button>
-                <br>
+                <button class="btn btn-default btn-lg btn-block" type="submit" [disabled]="!rutaNew.form.valid">Confirmar</button>
             </form>
         </div>
     </div>

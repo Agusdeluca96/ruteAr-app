@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from "./";
 
 export class Ruta {
     constructor(
@@ -6,7 +6,7 @@ export class Ruta {
         public nombre: string,
         public descripcion: string,
         public privacidad: string,
-        public recorrido: string,
+        public recorrido: any,
         public formato: string,
         public distancia: any,
         public dificultad: string,

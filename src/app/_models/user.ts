@@ -1,4 +1,4 @@
-import { Rol } from "../_models";
+import { Rol } from "./";
 
 export class User {
     constructor(

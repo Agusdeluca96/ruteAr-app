@@ -26,6 +26,7 @@ export class ActividadListComponent implements OnInit {
             error => swal({
                 type: 'error',
                 title: 'Ha ocurrido un error!',
+                text: 'Por favor, vuelva a intentarlo mas tarde.',
                 showConfirmButton: false,
                 timer: 2000
             })
