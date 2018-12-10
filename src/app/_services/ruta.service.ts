@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Ruta } from '../_models/ruta';
+import { Ruta, Note } from '../_models';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -20,10 +20,29 @@ export class RutaService {
     listAll(): Observable<Ruta[]> {
         return this.http.get<Ruta[]>('http://localhost:8080/ruteAr/ruta/listAll');
     }
-
+    
     /** POST: add a new Ruta to the database */
     add(ruta: Ruta): Observable<Ruta> {
-        console.log(ruta.actividad.nombre);
         return this.http.post<Ruta>('http://localhost:8080/ruteAr/ruta/', ruta, httpOptions);
+    }
+
+    /** GET Ruta from the server */
+    find(id: number): Observable<Ruta> {
+        return this.http.get<Ruta>('http://localhost:8080/ruteAr/ruta/' + id.toString(), httpOptions);
+    }
+
+    /** POST: update a Ruta from the database */
+    update(ruta: Ruta, id: number): Observable<Ruta> {
+        return this.http.put<Ruta>('http://localhost:8080/ruteAr/ruta/' + id.toString(), ruta, httpOptions);
+    }
+
+    /** DELETE: delete Ruta from the database */
+    delete(id: number): Observable<{}> {
+        return this.http.delete('http://localhost:8080/ruteAr/ruta/' + id.toString(), httpOptions);
+    }
+
+    /** POST: add a new Nota to Ruta from the database */
+    addNote(note: Note, id: number): Observable<Note> {
+        return this.http.post<Note>('http://localhost:8080/ruteAr/ruta/' + id.toString() + '/nota', note, httpOptions);
     }
 }

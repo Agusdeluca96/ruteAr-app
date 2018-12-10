@@ -1,0 +1,85 @@
+<!--Top Table UI-->
+<div class="container">
+    <div class="card card-cascade narrower p-2 container-table">
+        <div class="px-6">
+            <div class="table-wrapper">
+                <!--Table-->
+                <table class="table table-striped table-responsive-md btn-table">
+                    <!--Table head-->
+                    <thead class="blue-grey lighten-4">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Actividad</th>
+                            <th>Distancia</th>
+                            <th>Formato</th>
+                            <th>Dificultad</th>
+                            <th>Tiempo estimado</th>
+                            <th>Privacidad</th>
+                            <th>Puntaje</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <!--Table head-->
+                    <!--Table body-->
+                    <tbody>
+                        <tr *ngFor="let ruta of rutas; let i = index">
+                            <td>{{ ruta.nombre }}</td>
+                            <td>{{ ruta.actividad.nombre }}</td>
+                            <td>{{ ruta.distancia }} km</td>
+                            <td>{{ ruta.formato }}</td>
+                            <td>{{ ruta.dificultad }}</td>
+                            <td>{{ ruta.tiempo }} min</td>
+                            <td>{{ ruta.privacidad }}</td>
+                            <td></td>
+                            <td>
+                                <button class="btn btn-sm btn-rounded btn-default" (click)="view(ruta)">Detalle</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-secondary btn-rounded" (click)="modalNote(content, ruta)">Agregar nota</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!--Table body-->
+                </table>
+                <!--Table-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar una nota a una ruta -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <form class="needs-validation" (ngSubmit)="onNoteFormSubmit(noteForm)" #noteForm="ngForm">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                <b>Agregar nota a: {{ rutaNote.nombre }}</b>
+            </h3>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-check-label" for="categoria">Categoria</label>
+                    <select class="custom-select d-block w-100" id="categoria" required [(ngModel)]="note.categoria" name="categoria">
+                        <option *ngFor="let categoria of categoriasNote" [value]="categoria">{{categoria}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-check-label" for="descripcion">Descripcion</label>
+                    <div class="input-group">
+                        <textarea rows="3" class="form-control" id="descripcion" [(ngModel)]="note.descripcion" name="descripcion" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="c('Close click')">Cancelar</button>
+            <button type="submit" [disabled]="!noteForm.form.valid" class="btn btn-secondary">Agregar</button>
+        </div>
+    </form>
+</ng-template>

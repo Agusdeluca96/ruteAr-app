@@ -60,4 +60,9 @@ export class UserListComponent implements OnInit {
         this.userDetail = user;
         this.modalService.open(content, { centered: true });
     }
+
+    dateConverter(date) {
+        var userDate = new Date(date);
+        return userDate.getDate() + '/' + (userDate.getMonth() + 1) + '/' + userDate.getFullYear();
+    }
 }

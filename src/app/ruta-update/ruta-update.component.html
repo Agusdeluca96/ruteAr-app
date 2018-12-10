@@ -1,17 +1,17 @@
 <div class="container container-form">
     <div class="row">
         <div class="col-md-12 order-md-1">
-            <h2 class="mb-3">Nueva Ruta</h2>
-            <form class="needs-validation" (ngSubmit)="onSubmit(rutaNew)" #rutaNew="ngForm">
+            <h2 class="mb-3">Modificar Ruta</h2>
+            <form class="needs-validation" (ngSubmit)="onSubmit(rutaUpdate)" #rutaUpdate="ngForm">
                 <div class="mb-3">
                     <label for="nombre">Nombre</label>
-                    <input class="form-control" id="nombre" [(ngModel)]="ruta.nombre" name="nombre"
+                    <input class="form-control" id="nombre" ng-value="ruta.nombre" [ngModel]="ruta?.nombre" (ngModelChange)="ruta.nombre = $event" name="nombre"
                         required>
                 </div>
                 <div class="mb-3">
                     <label for="descripcion">Descripcion</label>
                     <div class="input-group">
-                        <textarea rows="3" class="form-control" id="descripcion" [(ngModel)]="ruta.descripcion"
+                        <textarea rows="3" class="form-control" id="descripcion" ng-value="ruta.descripcion" [ngModel]="ruta?.descripcion" (ngModelChange)="ruta.descripcion = $event"
                             name="descripcion" required></textarea>
                     </div>
                 </div>
@@ -20,16 +20,16 @@
                         <label for="privacidad">
                             Privacidad
                         </label>
-                        <select class="custom-select d-block w-100" id="privacidad" required [(ngModel)]="ruta.privacidad" name="privacidad">
+                        <select class="custom-select d-block w-100" id="privacidad" ng-value="ruta.privacidad" required [ngModel]="ruta?.privacidad" (ngModelChange)="ruta.privacidad = $event" name="privacidad">
                             <option *ngFor="let privacidad of privacidades" [value]="privacidad">{{privacidad}}</option>
                         </select>
                     </div>
-                
+
                     <div class="col-md-4 mb-3">
                         <label for="formato">
                             Formato
                         </label>
-                        <select class="custom-select d-block w-100" id="formato" required [(ngModel)]="ruta.formato" name="formato">
+                        <select class="custom-select d-block w-100" id="formato" ng-value="ruta.formato" required [ngModel]="ruta?.formato" (ngModelChange)="ruta.formato = $event" name="formato">
                             <option *ngFor="let formato of formatos" [value]="formato">{{formato}}</option>
                         </select>
                     </div>
@@ -37,41 +37,42 @@
                         <label for="dificultad">
                             Dificultad
                         </label>
-                        <select class="custom-select d-block w-100" id="dificultad" required [(ngModel)]="ruta.dificultad" name="dificultad">
+                        <select class="custom-select d-block w-100" id="dificultad" ng-value="ruta.dificultad" required [ngModel]="ruta?.dificultad" (ngModelChange)="ruta.dificultad = $event" name="dificultad">
                             <option *ngFor="let dificultad of dificultades" [value]="dificultad">{{dificultad}}</option>
                         </select>
                     </div>
                 </div>
-                <!-- <div class="mb-3">
+                <div class="mb-3">
                     <label for="recorrido">Recorrido</label>
-                    <input type="file" class="form-control-file" id="recorrido" name="recorrido" [(ngModel)]="ruta.recorrido">
-                </div> -->
+                    <input type="file" class="form-control-file" id="recorrido" name="recorrido" (change)="uploadRecorrido()" required>
+                </div>
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="actividad">Actividad</label>
-                        <select class="custom-select d-block w-100" id="actividad" required [(ngModel)]="ruta.actividad" name="actividad">
+                        <select class="custom-select d-block w-100" id="actividad" required ng-value="ruta.actividad.id" [ngModel]="ruta?.actividad" (ngModelChange)="ruta.actividad = $event" name="actividad">
                             <option *ngFor="let actividad of actividades" [value]="actividad.id">{{actividad.nombre}}</option>
                         </select>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label>Fecha de Realización</label>
-                        <input type="date" name="fecha" id="fecha" max="3000-12-31" min="1000-01-01" [(ngModel)]="ruta.fecha" class="form-control" required>
+                        <input type="date" name="fecha" id="fecha" max="3000-12-31" min="1000-01-01" ng-value="ruta.fecha" [ngModel]="ruta?.fecha" (ngModelChange)="ruta.fecha = $event" class="form-control"
+                            required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="distancia">Distancia en km</label>
-                        <input type="number" class="form-control" name="distancia" id="distancia" min="0" [(ngModel)]="ruta.distancia" required>
+                        <input type="number" class="form-control" name="distancia" id="distancia" min="0" ng-value="ruta.distancia" [ngModel]="ruta?.distancia" (ngModelChange)="ruta.distancia = $event" required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="tiempo">Tiempo estimado en minutos</label>
-                        <input type="number" class="form-control" name="tiempo" id="tiempo" min="0" [(ngModel)]="ruta.tiempo" required>
+                        <input type="number" class="form-control" name="tiempo" id="tiempo" min="0" ng-value="ruta.tiempo" [ngModel]="ruta?.tiempo" (ngModelChange)="ruta.tiempo = $event" required>
                     </div>
                 </div>
-                <!-- <div class="mb-3">
+                <div class="mb-3">
                     <label for="fotos">Subir fotos</label>
-                    <input type="file" class="form-control-file" name="fotos" id="fotos" [(ngModel)]="ruta.fotos" required>
-                </div> -->
+                    <input type="file" class="form-control-file" name="fotos" id="fotos" (change)="uploadFotos()" required>
+                </div>
                 <hr class="mb-4">
-                <button class="btn btn-default btn-lg btn-block" type="submit" [disabled]="!rutaNew.form.valid">Confirmar</button>
+                <button class="btn btn-default btn-lg btn-block" type="submit" [disabled]="!rutaUpdate.form.valid">Confirmar</button>
             </form>
         </div>
     </div>

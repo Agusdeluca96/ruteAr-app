@@ -15,8 +15,15 @@ export class ActividadUpdateComponent implements OnInit {
     constructor(private actividadService: ActividadService, private router: Router, private route: ActivatedRoute) { }
 
     msjExito = '';
-    actividad = new Actividad('', '', '');
+    actividad: Actividad;
     submitted = false;
+
+    ngOnInit() {
+        let id = parseInt(this.route.snapshot.paramMap.get('id'));
+        this.actividadService.find(id).subscribe(
+            data => this.actividad = data,
+            error => console.log(error));
+    }
 
     onSubmit(form) {
         this.submitted = true;
@@ -37,13 +44,6 @@ export class ActividadUpdateComponent implements OnInit {
                 timer: 2000
             }));
         form.resetForm();
-    }
-
-    ngOnInit() {
-        let id = parseInt(this.route.snapshot.paramMap.get('id'));
-        this.actividadService.find(id).subscribe(
-            data => this.actividad = data,
-            error => console.log(error));
     }
 
 }

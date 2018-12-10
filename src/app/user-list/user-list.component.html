@@ -1,6 +1,6 @@
 <!--Top Table UI-->
 <div class="container">
-    <div class="card card-cascade narrower p-2">
+    <div class="card card-cascade narrower p-2 container-table">
         <div class="px-6">
             <div class="table-wrapper">
                 <!--Table-->
@@ -8,7 +8,6 @@
                     <!--Table head-->
                     <thead class="blue-grey lighten-4">
                         <tr>
-                            <th>#</th>
                             <th>Usuario</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
@@ -22,15 +21,15 @@
                     <!--Table body-->
                     <tbody>
                         <tr *ngFor="let user of users; let i = index">
-                            <td>{{ i + 1 }}</td>
+                            <!-- <td>{{ i + 1 }}</td> -->
                             <td>{{ user.usuario }}</td>
                             <td>{{ user.nombre }}</td>
                             <td>{{ user.apellido }}</td>
                             <td>{{ user.sexo }}</td>
                             <td>{{ user.email }}</td>
-                            <td><button class="btn btn-info" (click)="open(content, user)">Detalle</button></td>
-                            <td *ngIf="user.habilitado == true"><button type="button" class="btn btn-danger" name="deshabilitar" (click)="deshabilitar(user)">Deshabilitar</button></td>
-                            <td *ngIf="user.habilitado == false"><button type="button" class="btn btn-success" name="habilitar" (click)="habilitar(user)">Habilitar</button></td>
+                            <td><button class="btn btn-sm btn-rounded btn-info" (click)="open(content, user)">Detalle</button></td>
+                            <td *ngIf="user.habilitado == true"><button type="button" class="btn btn-sm btn-rounded btn-danger" name="deshabilitar" (click)="deshabilitar(user)">Deshabilitar</button></td>
+                            <td *ngIf="user.habilitado == false"><button type="button" class="btn btn-sm btn-rounded btn-success" name="habilitar" (click)="habilitar(user)">Habilitar</button></td>
                         </tr>
                     </tbody>
                     <!--Table body-->
@@ -51,7 +50,7 @@
         <p><b>Nombre completo:</b> {{ userDetail.nombre }} {{ userDetail.apellido }}</p>
         <p><b>Usuario:</b> {{ userDetail.usuario }}</p>
         <p><b>Email:</b> {{ userDetail.email }}</p>
-        <p><b>Fecha de Nacimento:</b> {{ userDetail.fechaNacimiento }}</p>
+        <p><b>Fecha de Nacimento:</b> {{ dateConverter(userDetail.fechaNacimiento) }}</p>
         <p><b>Domicilio:</b> {{ userDetail.domicilio }}</p>
         <p><b>Sexo:</b> {{ userDetail.sexo }}</p>
         <p *ngIf="userDetail.habilitado == true"><b>Estado:</b> Habilitado</p>

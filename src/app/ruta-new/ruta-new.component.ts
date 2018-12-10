@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ruta, Actividad } from '../_models';
+import { Ruta, Actividad, User } from '../_models';
 import { RutaService, ActividadService } from '../_services';
 import { Router } from "@angular/router";
 import swal from 'sweetalert2';
@@ -13,16 +13,22 @@ export class RutaNewComponent implements OnInit {
 
     constructor(private rutaService: RutaService, private actividadService: ActividadService, private router: Router) { }
 
-    ruta = new Ruta('', '', '', '', '', '', '', '', '', '', '', '', '', '');
+    ruta = new Ruta('', '', '', '', '', '', '', '', '', '', [], [], [], '', new User());
     submitted = false;
     dificultades = ['FACIL', 'MODERADO', 'DIFICIL', 'MUY_DIFICIL', 'SOLO_EXPERTOS'];
     formatos = ['SOLO_IDA', 'CIRCULAR'];
     privacidades = ['PUBLICA', 'PRIVADA'];
     actividades: Actividad[];
+    currentUser: User = JSON.parse(localStorage.getItem('currentUser'));  
+
+    ngOnInit() {
+        this.getActividades();
+    }
 
     onSubmit(form) {
-        console.log(this.ruta.actividad);
         this.submitted = true;
+        this.ruta.creador.id = this.currentUser.id;
+        this.ruta.actividad = new Actividad(this.ruta.actividad);
         this.rutaService.add(this.ruta).subscribe(
             data => {
                 swal({
@@ -33,18 +39,18 @@ export class RutaNewComponent implements OnInit {
                 });
                 this.router.navigate(['home/ruta/list']);
             },
-            error => swal({
-                type: 'error',
-                title: 'Ha ocurrido un error!',
-                text: 'Por favor vuelva a internarlo mas tarde.',
-                showConfirmButton: false,
-                timer: 2000
-            }));
+            error => {
+                console.log(error);
+                swal({
+                    type: 'error',
+                    title: 'Ha ocurrido un error!',
+                    text: 'Por favor vuelva a internarlo mas tarde.',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        );
         form.resetForm();
-    }
-
-    ngOnInit() {
-        this.getActividades();
     }
 
     getActividades(): void {
@@ -59,7 +65,4 @@ export class RutaNewComponent implements OnInit {
             })
         );
     }
-
-    get diagnostic() { return JSON.stringify(this.ruta); }
-
 }

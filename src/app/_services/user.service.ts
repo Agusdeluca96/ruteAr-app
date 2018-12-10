@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../_models/user';
+import { User, Ruta } from '../_models';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -36,5 +36,15 @@ export class UserService {
     deshabilitar(user: User): Observable<User> {
         const url = 'http://localhost:8080/ruteAr/usuario/'.concat(user.id.toString(), '/deshabilitar');
         return this.http.put<User>(url, httpOptions);
+    }
+
+    /** GET Rutas Agregadas by the User from the database */
+    listAllRutasAgregadas(user: User): Observable<Ruta[]> {
+        return this.http.get<Ruta[]>('http://localhost:8080/ruteAr/usuario/'.concat(user.id.toString(), '/rutasAgregadas'));
+    }
+
+    /** GET Rutas Recorridas by the User from the database */
+    listAllRutasRecorridas(user: User): Observable<Ruta[]> {
+        return this.http.get<Ruta[]>('http://localhost:8080/ruteAr/usuario/'.concat(user.id.toString(), '/rutasRecorridas'));
     }
 }

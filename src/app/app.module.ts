@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,12 @@ import { ActividadListComponent } from './actividad-list/actividad-list.componen
 import { ActividadNewComponent } from './actividad-new/actividad-new.component';
 import { ActividadUpdateComponent } from './actividad-update/actividad-update.component';
 import { RutaNewComponent } from './ruta-new/ruta-new.component';
+import { RutaViewComponent } from './ruta-view/ruta-view.component';
+import { RutaUpdateComponent } from './ruta-update/ruta-update.component';
+import { RutasAgregadasComponent } from './rutas-agregadas/rutas-agregadas.component';
+import { RutasRecorridasComponent } from './rutas-recorridas/rutas-recorridas.component';
+import { RutasDescubrirComponent } from './rutas-descubrir/rutas-descubrir.component';
+
 
 // Helpers
 import { JwtInterceptor } from './_helpers';
@@ -32,7 +39,6 @@ import { ErrorInterceptor } from './_helpers';
 
 // Guards
 import { AuthGuard } from './_guards';
-
 
 @NgModule({
     declarations: [
@@ -44,7 +50,12 @@ import { AuthGuard } from './_guards';
         ActividadNewComponent,
         LoginComponent,
         ActividadUpdateComponent,
-        RutaNewComponent
+        RutaNewComponent,
+        RutaViewComponent,
+        RutaUpdateComponent,
+        RutasAgregadasComponent,
+        RutasRecorridasComponent,
+        RutasDescubrirComponent,
     ],
     imports: [
         BrowserModule,
@@ -52,6 +63,7 @@ import { AuthGuard } from './_guards';
         HttpClientModule,
         FormsModule,
         SelectModule,
+        FontAwesomeModule,
         NgbModule.forRoot()
     ],
     providers: [

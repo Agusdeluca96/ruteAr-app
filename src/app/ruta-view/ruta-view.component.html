@@ -1,0 +1,84 @@
+<div class="container container-form">
+    <div class="row">
+        <div class="col-md-12 order-md-1">
+            <h2 class="mb-3">Detalle de la Ruta: <b>{{ruta.nombre}}</b></h2>
+            <form class="needs-validation" novalidate>
+                <br>
+                <div class="mb-3">
+                    <label for="descripcion">Descripcion</label>
+                    <div class="input-group">
+                        <textarea rows="4" class="form-control" id="descripcion" disabled>{{ ruta.descripcion }}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="routePrivacy">Privacidad</label>
+                        <input type="text" class="form-control" id="routePrivacy" value="{{ruta.privacidad}}" disabled>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="routeFormat">Formato</label>
+                        <input type="text" class="form-control" id="routeFormat" value="{{ruta.formato}}" disabled>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="dificultad">Dificultad</label>
+                        <input type="text" class="form-control" id="dificultad" value="{{ruta.dificultad}}" disabled>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="recorrido">Recorrido</label>
+                    <img class="map" src="images/mapaIruya.png" alt="Mapa Iruya">
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="actividad">Actividad</label>
+                        <input type="text" class="form-control" id="actividad" value="{{ruta.actividad.nombre}}" disabled>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="distancia">Distancia</label>
+                        <input type="text" class="form-control" name="distancia" id="distancia" value="{{ruta.distancia}} km" disabled>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>Fecha de Realización</label>
+                        <input type="text" class="form-control" name="fecha" id="fecha" value="{{ruta.fecha}}" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="tiempo">Tiempo estimado en hs</label>
+                        <input type="text" class="form-control" name="tiempo" min="0" value="{{ruta.tiempo}} hs" disabled>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="recorrido">Fotos</label>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="mdb-lightbox-ui"></div>
+                            <div class="mdb-lightbox">
+                                <figure class="col-md-4">
+                                    <a href="images/iruya1.jpg" data-size="1600x1067">
+                                        <img src="images/iruya1.jpg" alt="placeholder" class="img-fluid">
+                                    </a>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <a href="images/iruya2.jpg" data-size="1600x1067">
+                                        <img src="images/iruya2.jpg" alt="placeholder" class="img-fluid" />
+                                    </a>
+                                </figure>
+                                <figure class="col-md-4">
+                                    <a href="images/iruya3.jpg" data-size="1600x1067">
+                                        <img src="images/iruya3.jpg" alt="placeholder" class="img-fluid" />
+                                    </a>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <div class="text-center">
+                    <button type="button" class="btn btn-dark-green" (click)="update()">Modificar</button>
+                    <button type="button" class="btn btn-danger" (click)="delete()">Eliminar</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>

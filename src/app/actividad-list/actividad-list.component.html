@@ -1,6 +1,6 @@
 <!--Top Table UI-->
 <div class="container">
-    <div class="card card-cascade narrower p-2">
+    <div class="card card-cascade narrower p-2 container-table">
         <div class="px-6">
             <div class="table-wrapper">
                 <!--Table-->
@@ -8,7 +8,6 @@
                     <!--Table head-->
                     <thead class="blue-grey lighten-4">
                         <tr>
-                            <th>#</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th></th>
@@ -19,11 +18,10 @@
                     <!--Table body-->
                     <tbody>
                         <tr *ngFor="let actividad of actividades; let i = index">
-                            <td>{{ i + 1 }}</td>
                             <td>{{ actividad.nombre }}</td>
                             <td>{{ actividad.descripcion }}</td>
-                            <td><button class="btn btn-dark-green" (click)="update(actividad)">Modificar</button></td>
-                            <td><button class="btn btn-danger" (click)="delete(actividad)">Eliminar</button></td>
+                            <td><button class="btn btn-sm btn-rounded btn-dark-green" (click)="update(actividad)">Modificar</button></td>
+                            <td><button class="btn btn-sm btn-rounded btn-danger" (click)="delete(actividad)">Eliminar</button></td>
                         </tr>
                     </tbody>
                     <!--Table body-->

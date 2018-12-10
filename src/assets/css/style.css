@@ -41,3 +41,19 @@ td {
     height: 60%;
     width: 100%;
 }
+
+.table tr{
+    text-align: center; 
+}
+
+.container-form{
+    padding-left: 160px!important;
+}
+
+.container-login, .container-register{
+    padding-left: 200px!important;
+}
+
+.container-table{
+    width: 1300px;
+}
