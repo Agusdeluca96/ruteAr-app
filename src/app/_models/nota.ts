@@ -1,6 +1,6 @@
-import { User } from "./";
+import { User } from ".";
 
-export class Note {
+export class Nota {
     constructor(
         public id?: any,
         public categoria?: string,

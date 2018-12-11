@@ -1,4 +1,4 @@
-import { User } from "./";
+import { User } from ".";
 
 export class Ruta {
     constructor(

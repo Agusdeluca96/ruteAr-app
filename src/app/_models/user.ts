@@ -1,4 +1,4 @@
-import { Rol } from "./";
+import { Rol } from ".";
 
 export class User {
     constructor(

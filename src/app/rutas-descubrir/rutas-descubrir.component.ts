@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Ruta, User } from '../_models';
+import { Ruta, User, Nota } from '../_models';
 import { RutaService } from '../_services';
 import { Router } from "@angular/router";
 import swal from 'sweetalert2';
@@ -15,6 +15,10 @@ import swal from 'sweetalert2';
 export class RutasDescubrirComponent implements OnInit {
     rutas: Ruta[];
     currentUser: User;
+    rutaNota: Ruta;
+    categoriasNota = ['ALERTA', 'DENUNCIA', 'OPINION'];
+    nota: Nota = new Nota('', '', '', new User());
+    modalNotaReference: any;
 
     constructor(private modalService: NgbModal, private router: Router, private rutaService: RutaService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -39,5 +43,34 @@ export class RutasDescubrirComponent implements OnInit {
         this.router.navigate(['home/ruta/view', ruta.id])
     }
 
+    openModalNota(content, ruta) {
+        this.rutaNota = ruta;
+        this.modalNotaReference = this.modalService.open(content, { centered: true });
+    }
+
+    onNotaFormSubmit(notaForm) {
+        this.nota.autor.id = this.currentUser.id;
+        this.rutaService.addNota(this.nota, this.rutaNota.id).subscribe(
+            data => {
+                swal({
+                    type: 'success',
+                    title: 'Nota agregada con exito!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            },
+            error => {
+                swal({
+                    type: 'error',
+                    title: 'Ha ocurrido un error!',
+                    text: 'Por favor vuelva a internarlo mas tarde.',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        );
+        notaForm.resetForm();
+        this.modalNotaReference.close();
+    }
 }
 

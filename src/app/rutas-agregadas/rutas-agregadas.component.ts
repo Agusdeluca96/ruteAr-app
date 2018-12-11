@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Ruta, User, Note } from '../_models';
+import { Ruta, User, Nota } from '../_models';
 import { RutaService, UserService } from '../_services';
 import { Router } from "@angular/router";
 import swal from 'sweetalert2';
@@ -14,10 +14,10 @@ import swal from 'sweetalert2';
 export class RutasAgregadasComponent implements OnInit {
     rutas: Ruta[];
     currentUser: User;
-    rutaNote: Ruta;
-    categoriasNote = ['ALERTA', 'DENUNCIA', 'OPINION'];
-    note: Note = new Note('', '', '', new User());
-    modalNoteReference: any;
+    rutaNota: Ruta;
+    categoriasNota = ['ALERTA', 'DENUNCIA', 'OPINION'];
+    nota: Nota = new Nota('', '', '', new User());
+    modalNotaReference: any;
 
     constructor(private modalService: NgbModal, private router: Router, private rutaService: RutaService, private userService: UserService) { 
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -42,15 +42,15 @@ export class RutasAgregadasComponent implements OnInit {
         this.router.navigate(['home/ruta/view', ruta.id])
     }
 
-    modalNote(content, ruta) {
-        this.rutaNote = ruta;
-        this.modalNoteReference = this.modalService.open(content, { centered: true });
+    openModalNota(content, ruta) {
+        this.rutaNota = ruta;
+        this.modalNotaReference = this.modalService.open(content, { centered: true });
     }
 
 
-    onNoteFormSubmit(noteForm) {
-        this.note.autor.id = this.currentUser.id;
-        this.rutaService.addNote(this.note, this.rutaNote.id).subscribe(
+    onNotaFormSubmit(notaForm) {
+        this.nota.autor.id = this.currentUser.id;
+        this.rutaService.addNota(this.nota, this.rutaNota.id).subscribe(
             data => {
                 swal({
                     type: 'success',
@@ -69,8 +69,8 @@ export class RutasAgregadasComponent implements OnInit {
                 });
             }
         );
-        noteForm.resetForm();
-        this.modalNoteReference.close();
+        notaForm.resetForm();
+        this.modalNotaReference.close();
     }
 
 }

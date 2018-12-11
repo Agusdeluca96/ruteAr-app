@@ -19,7 +19,6 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <!--Table head-->
@@ -38,10 +37,7 @@
                                 <button class="btn btn-sm btn-rounded btn-default" (click)="view(ruta)">Detalle</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-secondary btn-rounded">Agregar nota</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-amber btn-rounded">Puntuar</button>
+                                <button type="button" class="btn btn-sm btn-secondary btn-rounded" (click)="openModalNota(modalnota, ruta)">Agregar nota</button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-dark-green btn-rounded">Ya hecha</button>
@@ -55,3 +51,39 @@
         </div>
     </div>
 </div>
+
+<!-- Modal para agregar una nota a una ruta -->
+<ng-template #modalnota let-c="close" let-d="dismiss">
+    <form class="needs-validation" (ngSubmit)="onNotaFormSubmit(notaForm)" #notaForm="ngForm">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                <b>Agregar nota a: {{ rutaNota.nombre }}</b>
+            </h3>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-check-label" for="categoria">Categoria</label>
+                    <select class="custom-select d-block w-100" id="categoria" required [(ngModel)]="nota.categoria" name="categoria">
+                        <option *ngFor="let categoria of categoriasNota" [value]="categoria">{{categoria}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-check-label" for="descripcion">Descripcion</label>
+                    <div class="input-group">
+                        <textarea rows="3" class="form-control" id="descripcion" [(ngModel)]="nota.descripcion" name="descripcion" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="c('Close click')">Cancelar</button>
+            <button type="submit" [disabled]="!notaForm.form.valid" class="btn btn-secondary">Agregar</button>
+        </div>
+    </form>
+</ng-template>

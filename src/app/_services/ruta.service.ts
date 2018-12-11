@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Ruta, Note } from '../_models';
+import { Ruta, Nota, Calificacion } from '../_models';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -42,7 +42,12 @@ export class RutaService {
     }
 
     /** POST: add a new Nota to Ruta from the database */
-    addNote(note: Note, id: number): Observable<Note> {
-        return this.http.post<Note>('http://localhost:8080/ruteAr/ruta/' + id.toString() + '/nota', note, httpOptions);
+    addNota(nota: Nota, id: number): Observable<Nota> {
+        return this.http.post<Nota>('http://localhost:8080/ruteAr/ruta/' + id.toString() + '/nota', nota, httpOptions);
+    }
+
+    /** POST: add a new Calificacion to Ruta from the database */
+    addCalificacion(calificacion: Calificacion, id: number): Observable<Calificacion> {
+        return this.http.post<Calificacion>('http://localhost:8080/ruteAr/ruta/' + id.toString() + '/calificacion', calificacion, httpOptions);
     }
 }
