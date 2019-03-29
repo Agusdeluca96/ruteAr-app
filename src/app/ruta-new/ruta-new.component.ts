@@ -23,6 +23,7 @@ export class RutaNewComponent implements OnInit {
     currentUser: User = JSON.parse(localStorage.getItem('currentUser'));  
     fotos: Array<File> = [];
     recorrido: File = null;
+    validFotoExtension = ['jpg', 'jpeg', 'png']
     faFileImage = faFileImage;
     faTrash = faTrash;
     faFile = faFile;
@@ -44,6 +45,7 @@ export class RutaNewComponent implements OnInit {
                         this.rutaService.addFoto(foto, this.ruta.id).subscribe(
                             data => {},
                             error => {
+                                console.log("Errora");
                                 this.errorCreacionRuta = true;
                             }
                         );
@@ -53,6 +55,7 @@ export class RutaNewComponent implements OnInit {
                     this.rutaService.addRecorrido(this.recorrido, this.ruta.id).subscribe(
                         data => {},
                         error => {
+                            console.log("Errorb");
                             this.errorCreacionRuta = true;
                         }
                     );
@@ -66,6 +69,7 @@ export class RutaNewComponent implements OnInit {
                     });
                     this.router.navigate(['home/ruta/view', this.ruta.id])
                 } else {
+                    console.log("Errorc");
                     this.rutaService.delete(this.ruta.id).subscribe();
                 }
             },
@@ -98,7 +102,22 @@ export class RutaNewComponent implements OnInit {
 
     uploadFoto(event) {
         let foto = event.target.files[0];
-        this.fotos.push(foto);
+        if (this.checkValidFotoExtension(foto)) {
+            this.fotos.push(foto);
+        } else {
+            swal({
+                type: 'error',
+                title: 'Error al cargar imagen',
+                text: 'Recordá que solo se admiten imagenes con formato JPG, JPEG y PNG.',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        }
+    }
+
+    checkValidFotoExtension(foto) {
+        let extension = foto.name.split('.').pop();
+        return this.validFotoExtension.includes(extension);
     }
 
     deleteFoto(foto) {
