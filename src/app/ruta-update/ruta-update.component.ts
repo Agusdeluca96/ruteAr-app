@@ -25,7 +25,8 @@ export class RutaUpdateComponent implements OnInit {
         let id = parseInt(this.route.snapshot.paramMap.get('id'));
         this.rutaService.find(id).subscribe(
             data => {
-                this.ruta = data
+                console.log(data);
+                this.ruta = data;
                 var rutaDate = new Date(this.ruta.fecha);
                 this.ruta.fecha = rutaDate.getFullYear() + '-' + (rutaDate.getMonth() + 1) + '-' + rutaDate.getDate()
             },
@@ -36,7 +37,6 @@ export class RutaUpdateComponent implements OnInit {
                 timer: 2000
             })
         );
-        // console.log(this.ruta)
         this.getActividades();
     }
     

@@ -4,6 +4,7 @@ import { Ruta, User, Nota } from '../_models';
 import { RutaService, UserService } from '../_services';
 import { Router } from "@angular/router";
 import swal from 'sweetalert2';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-rutas-agregadas',
@@ -18,6 +19,7 @@ export class RutasAgregadasComponent implements OnInit {
     categoriasNota = ['ALERTA', 'DENUNCIA', 'OPINION'];
     nota: Nota = new Nota('', '', '', new User());
     modalNotaReference: any;
+    faStar = faStar;
 
     constructor(private modalService: NgbModal, private router: Router, private rutaService: RutaService, private userService: UserService) { 
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -55,8 +57,9 @@ export class RutasAgregadasComponent implements OnInit {
                 swal({
                     type: 'success',
                     title: 'Nota agregada con exito!',
+                    text: 'Podras visualizar esta y el resto de las notas de la ruta en su detalle',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 2500
                 });
             },
             error => {

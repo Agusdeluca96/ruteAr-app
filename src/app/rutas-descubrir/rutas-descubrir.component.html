@@ -14,8 +14,8 @@
                             <th>Formato</th>
                             <th>Dificultad</th>
                             <th>Tiempo estimado</th>
-                            <th>Privacidad</th>
                             <th>Puntaje</th>
+                            <th>Recorrida por</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -31,16 +31,26 @@
                             <td>{{ ruta.formato }}</td>
                             <td>{{ ruta.dificultad }}</td>
                             <td>{{ ruta.tiempo }} min</td>
-                            <td>{{ ruta.privacidad }}</td>
-                            <td></td>
+                            <ng-container *ngIf="ruta.calificacionPromedio != 0; else elsePuntaje">
+                                <td>{{ ruta.calificacionPromedio }} <fa-icon [icon]="faStar"></fa-icon></td>
+                            </ng-container>
+                            <ng-template #elsePuntaje>
+                                <td>Sin puntuar</td>
+                            </ng-template>
+                            <ng-container *ngIf="ruta.cantUsuariosRecorrieron == 0; else elseUsuarios">
+                                <td>{{ ruta.cantUsuariosRecorrieron }} usuario</td>
+                            </ng-container>
+                            <ng-template #elseUsuarios>
+                                <td>{{ ruta.cantUsuariosRecorrieron }} usuarios</td>
+                            </ng-template>
                             <td>
-                                <button class="btn btn-sm btn-rounded btn-default" (click)="view(ruta)">Detalle</button>
+                                <button type="button" class="btn btn-sm btn-default btn-rounded" (click)="view(ruta)">Detalle</button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-secondary btn-rounded" (click)="openModalNota(modalnota, ruta)">Agregar nota</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-dark-green btn-rounded">Ya hecha</button>
+                                <button *ngIf="!ruta.isRecorrida"  type="button" class="btn btn-sm btn-dark-green btn-rounded" (click)="addKnownRoute(ruta)">Ya hecha</button>
                             </td>
                         </tr>
                     </tbody>

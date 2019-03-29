@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+/// <reference types="@types/googlemaps" />
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { environment } from '../../environments/environment'
 import { Ruta } from '../_models';
 import { RutaService } from '../_services';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 import swal from 'sweetalert2';
 
 @Component({
@@ -13,10 +16,13 @@ import swal from 'sweetalert2';
 
 export class RutaViewComponent implements OnInit {
 
-    constructor(private rutaService: RutaService, private router: Router, private route: ActivatedRoute, private _location: Location) { }
+    constructor(private rutaService: RutaService, private router: Router, private route: ActivatedRoute, private _location: Location, private sanitizer: DomSanitizer) { }
 
-    // ruta: Ruta;
-    ruta = new Ruta('', 'Iruya', 'Nos alojamos en lo de Jasinta. Es una pieza limpia, con camas que tienen sabanas y cobijas limpias, nos alimentaron muy bien y son muy amables. La casa esta al lado de una construccion de techo verde. No lo aconsejo para personas con escasa actividad fisica ya que, partes del recorrido son muy exigentes. No tiene desperdicio las vistas desde San Juan a Iruya.', 'Privada', '', 'Solo ida', '12', 'Moderado', '2', '20/10/2016', '', '', '', 'Senderismo');
+    ruta: Ruta;
+
+    @ViewChild('gmap') gmapElement: any;
+    map: google.maps.KmlLayer;
+
 
     ngOnInit() {
         let id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -25,6 +31,7 @@ export class RutaViewComponent implements OnInit {
                 this.ruta = data;
                 var rutaDate = new Date(this.ruta.fecha);
                 this.ruta.fecha = rutaDate.getDate() + '/' + (rutaDate.getMonth() + 1) + '/' + rutaDate.getFullYear();
+                this.renderKmlMap(id);
             },
             error => console.log(error));
     }
@@ -65,6 +72,30 @@ export class RutaViewComponent implements OnInit {
                 )
             }
         });
+    }
+
+    categoryClass(category) {
+        if (category === "ALERTA") {
+            return 'badge-danger';
+        } else if (category === "DENUNCIA") {
+            return 'badge-warning';
+        } else {
+            return 'badge-success';
+        }
+    }
+
+    renderKmlMap(id) {
+        let maps = new google.maps.Map(this.gmapElement.nativeElement);
+
+        this.map = new google.maps.KmlLayer({
+            // url: environment.api_url + 'ruta/' + id + '/kml',
+            url: 'http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss',
+            map: maps
+        });
+    }
+
+    getUrlFoto(foto) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + foto);
     }
 
 

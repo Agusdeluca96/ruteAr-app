@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +38,9 @@ import { ErrorInterceptor } from './_helpers';
 
 // Guards
 import { AuthGuard } from './_guards';
+
+// Icons
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [

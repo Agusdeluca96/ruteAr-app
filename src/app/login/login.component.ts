@@ -37,11 +37,56 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        // reset login status
         this.authenticationService.logout();
-
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
+
+    public openCredenciales() {
+        swal({
+            title: 'Bienvenido a RutaAr!',
+            text: "Cómo deseás ingresar al sistema?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#398a2f',
+            cancelButtonColor: '#269bcc',
+            confirmButtonText: 'Administrador',
+            cancelButtonText: 'Usuario Básico'
+        }).then(result => {
+            if (result.value) {
+                swal({
+                    title: 'Credenciales del Administrador',
+                    html: "<b>Usuario:</b> <i>admin</i> <br> <b>Contraseña:</b> <i>admin</i>",
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#398a2f',
+                    cancelButtonColor: '#269bcc',
+                    confirmButtonText: 'Autocompletar',
+                    cancelButtonText: 'Yo me encargo',
+                }).then(result => {
+                    if (result.value) {
+                        this.user.usuario = 'admin';
+                        this.user.contrasena = 'admin';
+                    }
+                });
+            } else {
+                swal({
+                    title: 'Credenciales de Usuario Básico',
+                    html: "<b>Usuario:</b> <i>basico</i> <br> <b>Contraseña:</b> <i>basico</i>",
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#398a2f',
+                    cancelButtonColor: '#269bcc',
+                    confirmButtonText: 'Autocompletar',
+                    cancelButtonText: 'Yo me encargo',
+                }).then(result => {
+                    if (result.value) {
+                        this.user.usuario = 'basico';
+                        this.user.contrasena = 'basico';
+                    }
+                });
+            }
+        });
     }
 
 }

@@ -11,22 +11,40 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label for="routePrivacy">Privacidad</label>
                         <input type="text" class="form-control" id="routePrivacy" value="{{ruta.privacidad}}" disabled>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label for="routeFormat">Formato</label>
                         <input type="text" class="form-control" id="routeFormat" value="{{ruta.formato}}" disabled>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-2 mb-3">
                         <label for="dificultad">Dificultad</label>
                         <input type="text" class="form-control" id="dificultad" value="{{ruta.dificultad}}" disabled>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="puntaje">Puntaje Promedio</label>
+                        <ng-container *ngIf="ruta.calificacionPromedio != 0; else elsePuntaje">
+                            <input type="text" class="form-control" id="puntaje" value="{{ruta.calificacionPromedio}}" disabled>
+                        </ng-container>
+                        <ng-template #elsePuntaje>
+                            <input type="text" class="form-control" id="puntaje" value="Sin puntuar" disabled>
+                        </ng-template>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="cantUsuariosRealizaron">Recorrida por</label>
+                        <ng-container *ngIf="ruta.cantUsuariosRecorrieron == 1; else elseUsuario">
+                            <input type="text" class="form-control" id="cantUsuariosRealizaron" value="{{ruta.cantUsuariosRecorrieron}} usuario" disabled>
+                        </ng-container>
+                        <ng-template #elseUsuario>
+                            <input type="text" class="form-control" id="cantUsuariosRealizaron" value="{{ruta.cantUsuariosRecorrieron}} usuarios" disabled>
+                        </ng-template>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="recorrido">Recorrido</label>
-                    <img class="map" src="images/mapaIruya.png" alt="Mapa Iruya">
+                    <div #gmap style="width:100%;height:400px"></div>
                 </div>
                 <br>
                 <div class="row">
@@ -53,22 +71,41 @@
                         <div class="col-md-12">
                             <div id="mdb-lightbox-ui"></div>
                             <div class="mdb-lightbox">
-                                <figure class="col-md-4">
-                                    <a href="images/iruya1.jpg" data-size="1600x1067">
-                                        <img src="images/iruya1.jpg" alt="placeholder" class="img-fluid">
-                                    </a>
-                                </figure>
-                                <figure class="col-md-4">
-                                    <a href="images/iruya2.jpg" data-size="1600x1067">
-                                        <img src="images/iruya2.jpg" alt="placeholder" class="img-fluid" />
-                                    </a>
-                                </figure>
-                                <figure class="col-md-4">
-                                    <a href="images/iruya3.jpg" data-size="1600x1067">
-                                        <img src="images/iruya3.jpg" alt="placeholder" class="img-fluid" />
-                                    </a>
+                                <figure class="col-md-4" *ngFor="let foto of ruta.fotos" >
+                                    <img [src]="getUrlFoto(foto)" alt="placeholder" class="img-fluid">
                                 </figure>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <label for="notas">Notas</label>
+                <div class="card card-cascade narrower p-2">
+                    <div class="px-6">
+                        <div class="table-wrapper">
+                            <!--Table-->
+                                <table class="table table-responsive-md btn-table">
+                                    <!--Table head-->
+                                    <thead class="blue-grey lighten-4">
+                                        <tr>
+                                            <th>Autor</th>
+                                            <th>Categoría</th>
+                                            <th>Descripción</th>
+                                        </tr>
+                                    </thead>
+                                    <!--Table head-->
+                                    <!--Table body-->
+                                    <tbody>
+                                        <tr *ngFor="let nota of ruta.notas; let i = index">
+                                            <td>{{ nota.autor.nombre }} {{ nota.autor.apellido }}</td>
+                                            <td><span class="badge " [ngClass]="categoryClass(nota.categoria)" >{{ nota.categoria }}</span></td>
+                                            <td>{{ nota.descripcion }}</td>
+                                        </tr>
+                                    </tbody>
+                                    <!--Table body-->
+                                </table>
+
+                            <!--Table-->
                         </div>
                     </div>
                 </div>

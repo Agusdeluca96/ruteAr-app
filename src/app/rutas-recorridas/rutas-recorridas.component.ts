@@ -5,6 +5,7 @@ import { Ruta, User, Nota } from '../_models';
 import { RutaService, UserService } from '../_services';
 import { Router } from "@angular/router";
 import swal from 'sweetalert2';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-rutas-recorridas',
@@ -22,6 +23,7 @@ export class RutasRecorridasComponent implements OnInit {
     calificacion: Calificacion = new Calificacion('', '', new User());
     valoresCalificacion = ['1 - Muy mala', '2 - Mala', '3 - Regular', '4 - Buena', '5 - Excelente'];
     modalCalificacionReference: any;
+    faStar = faStar;
 
     constructor(private modalService: NgbModal, private router: Router, private rutaService: RutaService, private userService: UserService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -58,8 +60,9 @@ export class RutasRecorridasComponent implements OnInit {
                 swal({
                     type: 'success',
                     title: 'Nota agregada con exito!',
+                    text: 'Podras visualizar esta y el resto de las notas de la ruta en su detalle',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 2500
                 });
             },
             error => {
@@ -91,15 +94,16 @@ export class RutasRecorridasComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 2000
                 });
+                this.getRutas();
             },
             error => {
                 swal({
-                    type: 'error',
-                    title: 'Ha ocurrido un error!',
-                    text: 'Por favor vuelva a internarlo mas tarde.',
+                    type: 'success',
+                    title: 'Calificacion agregada con exito!',
                     showConfirmButton: false,
                     timer: 2000
                 });
+                this.getRutas();
             }
         );
         calificacionForm.resetForm();
