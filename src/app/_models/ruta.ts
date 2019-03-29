@@ -12,10 +12,13 @@ export class Ruta {
         public dificultad?: string,
         public tiempo?: any,
         public fecha?: any,
-        public fotos?: any,
+        public calificacionPromedio?: any,
+        public cantUsuariosRecorrieron?: any,
+        public fotos?: Array<File>,
         public calificaciones?: any,
         public notas?: any,
         public actividad?: any,
-        public creador?: User
+        public creador?: User,
+        public isRecorrida?: any
     ) { }
 }
