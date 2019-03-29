@@ -122,7 +122,7 @@ export class RutaNewComponent implements OnInit {
 
     deleteFoto(foto) {
         swal({
-            title: 'Confirma el borrado del archivo: ' + foto.name,
+            title: 'Confirma el borrado del archivo: ' + foto.name + '?',
             html: "No se subirá al crear la ruta",
             type: 'question',
             showCancelButton: true,
@@ -155,7 +155,7 @@ export class RutaNewComponent implements OnInit {
 
     deleteRecorrido(foto) {
         swal({
-            title: 'Confirma el borrado del archivo: ' + foto.name,
+            title: 'Confirma el borrado del archivo: ' + foto.name + '?',
             html: "No se subirá al crear la ruta",
             type: 'question',
             showCancelButton: true,
