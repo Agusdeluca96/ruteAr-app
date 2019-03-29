@@ -88,8 +88,7 @@ export class RutaViewComponent implements OnInit {
         let maps = new google.maps.Map(this.gmapElement.nativeElement);
 
         this.map = new google.maps.KmlLayer({
-            // url: environment.api_url + 'ruta/' + id + '/kml',
-            url: 'http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss',
+            url: environment.api_url + 'ruta/' + id + '/kml',
             map: maps
         });
     }

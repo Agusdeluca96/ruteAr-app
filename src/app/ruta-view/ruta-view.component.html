@@ -71,9 +71,13 @@
                         <div class="col-md-12">
                             <div id="mdb-lightbox-ui"></div>
                             <div class="mdb-lightbox">
-                                <figure class="col-md-4" *ngFor="let foto of ruta.fotos" >
-                                    <img [src]="getUrlFoto(foto)" alt="placeholder" class="img-fluid">
-                                </figure>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3" *ngFor="let foto of ruta.fotos">
+                                        <figure>
+                                            <img [src]="getUrlFoto(foto)" alt="placeholder" class="img-fluid">
+                                        </figure>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
