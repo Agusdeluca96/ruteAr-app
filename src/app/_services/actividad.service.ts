@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs';
 import { Actividad } from '../_models/actividad';
 
@@ -20,27 +21,27 @@ export class ActividadService {
 
     /** GET actividades from the server */
     listAll(): Observable<Actividad[]> {
-        return this.http.get<Actividad[]>('http://localhost:8080/ruteAr/actividad/listAll');
+        return this.http.get<Actividad[]>(environment.api_url + 'actividad/listAll');
     }
 
     /** GET actividades from the server */
     find(id: number): Observable<Actividad> {
-        return this.http.get<Actividad>('http://localhost:8080/ruteAr/actividad/' + id.toString(), httpOptions);
+        return this.http.get<Actividad>(environment.api_url + 'actividad/' + id.toString(), httpOptions);
     }
 
     /** POST: add a new actividad to the database */
     add(actividad: Actividad): Observable<Actividad> {
-        return this.http.post<Actividad>('http://localhost:8080/ruteAr/actividad/', actividad, httpOptions);
+        return this.http.post<Actividad>(environment.api_url + 'actividad/', actividad, httpOptions);
     }
 
     /** POST: add a new actividad to the database */
     update(actividad: Actividad, id: number): Observable<Actividad> {
-        return this.http.put<Actividad>('http://localhost:8080/ruteAr/actividad/' + id.toString(), actividad, httpOptions);
+        return this.http.put<Actividad>(environment.api_url + 'actividad/' + id.toString(), actividad, httpOptions);
     }
 
     /** DELETE: delete actividad with the ID sended in the URL from the database */
     delete(id: number): Observable<{}> {
-        return this.http.delete('http://localhost:8080/ruteAr/actividad/' + id.toString(), httpOptions);
+        return this.http.delete(environment.api_url + 'actividad/' + id.toString(), httpOptions);
     }
 
 }
