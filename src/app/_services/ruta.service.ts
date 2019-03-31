@@ -58,6 +58,11 @@ export class RutaService {
         return this.http.post<File>(environment.api_url + 'ruta/' + id.toString() + '/foto', foto, httpOptionsMulti);
     }
 
+    /** DELETE: delete Ruta from the database */
+    deleteFoto(id: number, indexFoto: number): Observable<{}> {
+        return this.http.delete(environment.api_url + 'ruta/' + id.toString() + '/foto/' + indexFoto.toString(), httpOptions);
+    }
+
     /** POST: add a new Recorrido to Ruta to the database */
     addRecorrido(kml: File, id: number): Observable<File> {
         let httpOptionsMulti = {
