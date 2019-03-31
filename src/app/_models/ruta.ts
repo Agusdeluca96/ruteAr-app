@@ -1,4 +1,4 @@
-import { User } from ".";
+import { User, Actividad } from ".";
 
 export class Ruta {
     constructor(
@@ -12,12 +12,12 @@ export class Ruta {
         public dificultad?: string,
         public tiempo?: any,
         public fecha?: any,
-        public calificacionPromedio?: any,
-        public cantUsuariosRecorrieron?: any,
+        public puntaje?: string,
+        public usuarios?: string,
         public fotos?: Array<File>,
         public calificaciones?: any,
         public notas?: any,
-        public actividad?: any,
+        public actividad?: Actividad,
         public creador?: User,
         public isRecorrida?: any
     ) { }
