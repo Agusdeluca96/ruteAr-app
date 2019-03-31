@@ -1,4 +1,4 @@
-import { Calificacion } from './../_models/calificacion';
+import { Calificacion } from '../_models/calificacion';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Ruta, User, Nota } from '../_models';

@@ -1,0 +1,35 @@
+.profile-pic {
+	position: relative;
+	display: inline-table;
+}
+
+.profile-pic:hover .edit {
+	display: block;
+}
+
+.edit {
+	padding-top: 7px;	
+	padding-right: 7px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
+
+.edit a {
+	color: #fff;
+}
+
+.mdb-lightbox figure img {
+    cursor: no-drop;
+}
+
+.fullSize {
+    width:100% !important;
+    height:100% !important;
+}
+
+.halfSize {
+    width:50% !important;
+    height:50% !important;
+}

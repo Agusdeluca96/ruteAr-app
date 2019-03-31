@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Ruta, User, Nota } from '../_models';
-import { RutaService, UserService } from '../_services';
+import { Ruta, User, Nota, Actividad } from '../_models';
+import { RutaService, UserService, ActividadService } from '../_services';
 import { Router } from "@angular/router";
 import swal from 'sweetalert2';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-rutas-descubrir',
@@ -13,25 +13,34 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['./rutas-descubrir.component.css']
 })
 export class RutasDescubrirComponent implements OnInit {
+   
+    constructor(private modalService: NgbModal, private router: Router, private rutaService: RutaService, private userService: UserService, 
+        private actividadService: ActividadService) {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    }
     rutas: Ruta[];
     rutasRecorridas: Ruta[];
+    actividades: Actividad[];
     currentUser: User;
     rutaNota: Ruta;
+    dificultades = ['FACIL', 'MODERADO', 'DIFICIL', 'MUY_DIFICIL', 'SOLO_EXPERTOS'];
+    formatos = ['SOLO_IDA', 'CIRCULAR'];
     categoriasNota = ['ALERTA', 'DENUNCIA', 'OPINION'];
     nota: Nota = new Nota('', '', '', new User());
     modalNotaReference: any;
     faStar = faStar;
-
-    constructor(private modalService: NgbModal, private router: Router, private rutaService: RutaService, private userService: UserService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    }
+    faArrowsAltV = faArrowsAltV;
+    filtroActividad = '';
+    filtroFormato = '';
+    filtroDificultad = '';
 
     ngOnInit() {
+        this.getActividades();
         this.getRutas();
     }
 
     getRutas(): void {
-        this.userService.listAllRutasDescubrir(this.currentUser).subscribe(
+        this.userService.listAllRutasDescubrir(this.currentUser, this.filtroActividad, this.filtroFormato, this.filtroDificultad).subscribe(
             data => {
                 this.rutas = data;
                 this.rutas.forEach(ruta => {
@@ -47,6 +56,19 @@ export class RutasDescubrirComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 2000
             }));
+    }
+
+    getActividades(): void {
+        this.actividadService.listAll().subscribe(
+            data => this.actividades = data,
+            error => swal({
+                type: 'error',
+                title: 'Ha ocurrido un error!',
+                text: 'Por favor, vuelva a intentarlo mas tarde.',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        );
     }
 
     view(ruta) {
@@ -106,6 +128,19 @@ export class RutasDescubrirComponent implements OnInit {
         );
         notaForm.resetForm();
         this.modalNotaReference.close();
+    }
+
+    changeFiltroActividad(id) {
+        console.log(id)
+        this.filtroActividad = id;
+    }
+    
+    changeFiltroFormato(formato) {
+        this.filtroFormato = formato;
+    }
+
+    changeFiltroDificultad(dificultad) {
+        this.filtroDificultad = dificultad;
     }
 }
 

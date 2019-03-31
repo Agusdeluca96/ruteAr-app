@@ -13,20 +13,20 @@
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="routePrivacy">Privacidad</label>
-                        <input type="text" class="form-control" id="routePrivacy" value="{{ruta.privacidad}}" disabled>
+                        <input type="text" class="form-control" id="routePrivacy" value="{{ruta.privacidad | textcorrector}}" disabled>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="routeFormat">Formato</label>
-                        <input type="text" class="form-control" id="routeFormat" value="{{ruta.formato}}" disabled>
+                        <label for="dificultad">Dificultad</label>
+                        <input type="text" class="form-control" id="dificultad" value="{{ruta.dificultad | textcorrector}}" disabled>
                     </div>
                     <div class="col-md-2 mb-3">
-                        <label for="dificultad">Dificultad</label>
-                        <input type="text" class="form-control" id="dificultad" value="{{ruta.dificultad}}" disabled>
+                        <label for="routeFormat">Formato</label>
+                        <input type="text" class="form-control" id="routeFormat" value="{{ruta.formato | textcorrector }}" disabled>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="puntaje">Puntaje Promedio</label>
-                        <ng-container *ngIf="ruta.calificacionPromedio != 0; else elsePuntaje">
-                            <input type="text" class="form-control" id="puntaje" value="{{ruta.calificacionPromedio}}" disabled>
+                        <ng-container *ngIf="ruta.puntaje != 0; else elsePuntaje">
+                            <input type="text" class="form-control" id="puntaje" value="{{ruta.puntaje}}" disabled>
                         </ng-container>
                         <ng-template #elsePuntaje>
                             <input type="text" class="form-control" id="puntaje" value="Sin puntuar" disabled>
@@ -34,11 +34,11 @@
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="cantUsuariosRealizaron">Recorrida por</label>
-                        <ng-container *ngIf="ruta.cantUsuariosRecorrieron == 1; else elseUsuario">
-                            <input type="text" class="form-control" id="cantUsuariosRealizaron" value="{{ruta.cantUsuariosRecorrieron}} usuario" disabled>
+                        <ng-container *ngIf="ruta.usuarios == 1; else elseUsuario">
+                            <input type="text" class="form-control" id="cantUsuariosRealizaron" value="{{ruta.usuarios}} usuario" disabled>
                         </ng-container>
                         <ng-template #elseUsuario>
-                            <input type="text" class="form-control" id="cantUsuariosRealizaron" value="{{ruta.cantUsuariosRecorrieron}} usuarios" disabled>
+                            <input type="text" class="form-control" id="cantUsuariosRealizaron" value="{{ruta.usuarios}} usuarios" disabled>
                         </ng-template>
                     </div>
                 </div>
@@ -61,8 +61,8 @@
                         <input type="text" class="form-control" name="fecha" id="fecha" value="{{ruta.fecha}}" class="form-control" disabled>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="tiempo">Tiempo estimado en hs</label>
-                        <input type="text" class="form-control" name="tiempo" min="0" value="{{ruta.tiempo}} hs" disabled>
+                        <label for="tiempo">Tiempo estimado en minutos</label>
+                        <input type="text" class="form-control" name="tiempo" min="0" value="{{ruta.tiempo}} minutos" disabled>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -114,9 +114,12 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-                <div class="text-center">
+                <div class="text-center" *ngIf="isCreadorRuta()">
                     <button type="button" class="btn btn-dark-green" (click)="update()">Modificar</button>
                     <button type="button" class="btn btn-danger" (click)="delete()">Eliminar</button>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-default" (click)="goBack()">Volver</button>
                 </div>
                 <br>
             </form>

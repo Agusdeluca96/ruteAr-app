@@ -9,11 +9,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 
 // Services
-import { UserService } from './_services';
-import { ActividadService } from './_services';
-import { RutaService } from './_services';
-import { AuthenticationService } from './_services';
+import { UserService, ActividadService, RutaService, AuthenticationService } from './_services';
 
+// Pipes
+import { TextcorrectorPipe } from './_pipes/textcorrector.pipe';
 
 // Components
 import { AppComponent } from './app.component';
@@ -41,6 +40,7 @@ import { AuthGuard } from './_guards';
 
 // Icons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
     declarations: [
@@ -58,6 +58,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         RutasAgregadasComponent,
         RutasRecorridasComponent,
         RutasDescubrirComponent,
+        TextcorrectorPipe,
     ],
     imports: [
         BrowserModule,
@@ -66,7 +67,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         FormsModule,
         SelectModule,
         FontAwesomeModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        MDBBootstrapModule.forRoot()
     ],
     providers: [
         AuthGuard,

@@ -1,7 +1,7 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../environments/environment'
-import { Ruta } from '../_models';
+import { Ruta, User } from '../_models';
 import { RutaService } from '../_services';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
@@ -19,6 +19,7 @@ export class RutaViewComponent implements OnInit {
     constructor(private rutaService: RutaService, private router: Router, private route: ActivatedRoute, private _location: Location, private sanitizer: DomSanitizer) { }
 
     ruta: Ruta;
+    currentUser: User = JSON.parse(localStorage.getItem('currentUser'));  
 
     @ViewChild('gmap') gmapElement: any;
     map: google.maps.KmlLayer;
@@ -59,8 +60,7 @@ export class RutaViewComponent implements OnInit {
                             title: 'Ruta eliminada!',
                             showConfirmButton: false,
                             timer: 2000
-                        });
-                        this._location.back();
+                        }).then((result) => window.location.href = (environment.url + 'home/ruta/listAgregadas/'))
                     },
                     error => swal({
                         type: 'error',
@@ -97,5 +97,12 @@ export class RutaViewComponent implements OnInit {
         return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + foto);
     }
 
+    goBack() {
+        this._location.back();
+    }
+
+    isCreadorRuta() {
+        return this.ruta.creador.id === this.currentUser.id;
+    }
 
 }

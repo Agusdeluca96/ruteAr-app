@@ -29,9 +29,15 @@
                         <label for="formato">
                             Formato
                         </label>
-                        <select class="custom-select d-block w-100" id="formato" ng-value="ruta.formato" required [ngModel]="ruta?.formato" (ngModelChange)="ruta.formato = $event" name="formato">
-                            <option *ngFor="let formato of formatos" [value]="formato">{{formato}}</option>
-                        </select>
+                        <ng-container *ngIf="ruta.usuarios == 1; else elseRutaYaRecorrida">
+                            <select class="custom-select d-block w-100" id="formato" ng-value="ruta.formato" required [ngModel]="ruta?.formato" (ngModelChange)="ruta.formato = $event"
+                                name="formato">
+                                <option *ngFor="let formato of formatos" [value]="formato">{{formato}}</option>
+                            </select>
+                        </ng-container>
+                        <ng-template #elseRutaYaRecorrida>
+                        <input type="text" class="form-control" id="routeFormat" value="{{ruta.formato | textcorrector}}" disabled>
+                        </ng-template>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="dificultad">
@@ -42,37 +48,129 @@
                         </select>
                     </div>
                 </div>
+                <div class="row" *ngIf="ruta.usuarios == 1">
+                    <div class="col-md-4 mb-3">
+                        <label for="inputRecorrido">Modificar recorrido</label>
+                        <input type="file" class="form-control-file" id="inputRecorrido" name="inputRecorrido" (change)="uploadRecorrido($event)"
+                            hidden>
+                        <input class="form-control-file btn btn-grey" type="button" value="Seleccionar..." onclick="document.getElementById('inputRecorrido').click();">
+                    </div>
+                    <div class="col-md-1 mb-3"></div>
+                
+                    <div class="col-md-7 mb-3">
+                        <label for="fotos">Nuevo recorrido subido</label>
+                        <div class="l3">
+                            <ng-container *ngIf="recorrido != null; else notRecorrido">
+                                <fa-icon [icon]="faFile" size="lg"></fa-icon> &nbsp; &nbsp;{{ recorrido.name }}
+                                <a (click)="deleteRecorrido(recorrido)">
+                                    <fa-icon [icon]="faTrash" size="sm"></fa-icon>
+                                </a>
+                            </ng-container>
+                            <ng-template #notRecorrido>
+                                <p style="color: grey; font-style: oblique">Aún no has cargado ningún recorrido.</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="ruta.usuarios == 1; else elseRutaYaRecorrida2;">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="actividad">Actividad</label>
+                            <select class="custom-select d-block w-100" id="actividad" required ng-value="ruta?.actividad.id" [ngModel]="ruta?.actividad.id"
+                                (ngModelChange)="ruta.actividad.id = $event" name="actividad">
+                                <option *ngFor="let actividad of actividades" [value]="actividad.id">{{actividad.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>Fecha de Realización</label>
+                            <input type="date" name="fecha" id="fecha" max="3000-12-31" min="1000-01-01" ng-value="ruta.fecha" [ngModel]="ruta?.fecha"
+                                (ngModelChange)="ruta.fecha = $event" class="form-control" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="distancia">Distancia en km</label>
+                            <input type="number" class="form-control" name="distancia" id="distancia" min="0" ng-value="ruta.distancia" [ngModel]="ruta?.distancia"
+                                (ngModelChange)="ruta.distancia = $event" required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="tiempo">Tiempo estimado en minutos</label>
+                            <input type="number" class="form-control" name="tiempo" id="tiempo" min="0" ng-value="ruta.tiempo" [ngModel]="ruta?.tiempo"
+                                (ngModelChange)="ruta.tiempo = $event" required>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #elseRutaYaRecorrida2>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="actividad">Actividad</label>
+                            <input type="text" class="form-control" id="actividad" value="{{ruta.actividad.nombre}}" disabled>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="distancia">Distancia</label>
+                            <input type="text" class="form-control" name="distancia" id="distancia" value="{{ruta.distancia}} km" disabled>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>Fecha de Realización</label>
+                            <input type="text" class="form-control" name="fecha" id="fecha" value="{{ruta.fecha}}" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="tiempo">Tiempo estimado en minutos</label>
+                            <input type="text" class="form-control" name="tiempo" min="0" value="{{ruta.tiempo}} minutos" disabled>
+                        </div>
+                    </div>
+                </ng-template>
                 <div class="mb-3">
-                    <label for="recorrido">Recorrido</label>
-                    <input type="file" class="form-control-file" id="recorrido" name="recorrido" (change)="uploadRecorrido()" required>
+                    <label for="labelFotos">Fotos actuales</label>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="mdb-lightbox-ui">
+                                <div class="mdb-lightbox">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3" *ngFor="let foto of ruta.fotos; let indexFoto = index">
+                                            <figure>    
+                                                <div class="profile-pic fullSize">
+                                                    <img [src]="getUrlFoto(foto)" class="fullSize">
+                                                    <div class="edit">
+                                                        <a (click)="deleteFotoRuta(indexFoto)">
+                                                            <fa-icon [icon]="faTrash" size="2x"></fa-icon>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <label for="actividad">Actividad</label>
-                        <select class="custom-select d-block w-100" id="actividad" required ng-value="ruta.actividad.id" [ngModel]="ruta?.actividad" (ngModelChange)="ruta.actividad = $event" name="actividad">
-                            <option *ngFor="let actividad of actividades" [value]="actividad.id">{{actividad.nombre}}</option>
-                        </select>
+                    <div class="col-md-4 mb-3">
+                        <label for="fotos">Subir nueva foto</label>
+                        <input type="file" class="form-control-file" name="fotos" id="fotos" (change)="uploadFoto($event)" hidden>
+                        <input class="form-control-file btn btn-grey" type="button" value="Seleccionar..." onclick="document.getElementById('fotos').click();">
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label>Fecha de Realización</label>
-                        <input type="date" name="fecha" id="fecha" max="3000-12-31" min="1000-01-01" ng-value="ruta.fecha" [ngModel]="ruta?.fecha" (ngModelChange)="ruta.fecha = $event" class="form-control"
-                            required>
+                    <div class="col-md-1 mb-3"></div>
+                
+                    <div class="col-md-7 mb-3">
+                        <label for="fotos">Nuevas fotos a subir</label>
+                        <ng-container *ngIf="fotos.length > 0; else notFotos">
+                            <div class="l3" *ngFor="let foto of fotos">
+                                <fa-icon [icon]="faFileImage" size="lg"></fa-icon> &nbsp; &nbsp;{{ foto.name }}
+                                <a (click)="deleteFoto(foto)">
+                                    <fa-icon [icon]="faTrash" size="sm"></fa-icon>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <ng-template #notFotos>
+                            <p style="color: grey; font-style: oblique">Aún no has cargado ninguna foto.</p>
+                        </ng-template>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="distancia">Distancia en km</label>
-                        <input type="number" class="form-control" name="distancia" id="distancia" min="0" ng-value="ruta.distancia" [ngModel]="ruta?.distancia" (ngModelChange)="ruta.distancia = $event" required>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="tiempo">Tiempo estimado en minutos</label>
-                        <input type="number" class="form-control" name="tiempo" id="tiempo" min="0" ng-value="ruta.tiempo" [ngModel]="ruta?.tiempo" (ngModelChange)="ruta.tiempo = $event" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="fotos">Subir fotos</label>
-                    <input type="file" class="form-control-file" name="fotos" id="fotos" (change)="uploadFotos()" required>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-default btn-lg btn-block" type="submit" [disabled]="!rutaUpdate.form.valid">Confirmar</button>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-dark-green" [disabled]="!rutaUpdate.form.valid">Confirmar</button>
+                    <button type="button" class="btn btn-danger" (click)="goBack()">Cancelar</button>
+                </div>
             </form>
         </div>
     </div>

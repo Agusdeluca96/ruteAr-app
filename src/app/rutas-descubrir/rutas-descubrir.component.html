@@ -1,21 +1,65 @@
 <!--Top Table UI-->
 <div class="container">
+    <h2 class="mb-3">Descubrir rutas</h2>
     <div class="card card-cascade narrower p-2 container-table">
+            <div class="p-2 mb-5" style="margin-bottom: 0%!important;">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12">
+                        <label for="actividad">Actividad</label>
+                        <select class="custom-select d-block w-100" id="actividad" required #act (change)="changeFiltroActividad(act.value)" name="actividad">
+                            <option selected disabled>Seleccione una actividad...</option>
+                            <option value="">Todas</option>
+                            <option *ngFor="let actividad of actividades" [value]="actividad.id">{{actividad.nombre}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label for="formato">Formato</label>
+                        <select class="custom-select d-block w-100" id="formato" required #format (change)="changeFiltroFormato(format.value)" name="formato">
+                            <option selected disabled>Seleccione una formato...</option>
+                            <option value="">Todas</option>
+                            <option *ngFor="let formato of formatos" [value]="formato">{{formato}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <label for="dificultad">Dificultad</label>
+                        <select class="custom-select d-block w-100" id="dificultad" required #difi (change)="changeFiltroDificultad(difi.value)" name="dificultad">
+                            <option selected disabled>Seleccione una dificultad...</option>
+                            <option value="">Todas</option>
+                            <option *ngFor="let dificultad of dificultades" [value]="dificultad">{{dificultad}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <button type="button" class="btn btn-md btn-default btn-rounded btn-block vertical-center" (click)="getRutas()">Filtrar</button>
+                    </div>
+                </div>
+            </div>
         <div class="px-6">
             <div class="table-wrapper">
                 <!--Table-->
-                <table class="table table-striped table-responsive-md btn-table">
+                <table mdbTable class="table table-striped table-responsive-md btn-table">
                     <!--Table head-->
                     <thead class="blue-grey lighten-4">
                         <tr>
                             <th>Nombre</th>
                             <th>Actividad</th>
-                            <th>Distancia</th>
+                            <th class="sortColumn" [mdbTableSort]="rutas" sortBy="distancia">
+                                <span style="padding-right: 3px">Distancia</span>
+                                <fa-icon [icon]="faArrowsAltV" size="sm"></fa-icon>
+                            </th>
                             <th>Formato</th>
-                            <th>Dificultad</th>
+                            <th class="sortColumn" [mdbTableSort]="rutas" sortBy="dificultad">
+                                <span style="padding-right: 3px">Dificultad</span>
+                                <fa-icon [icon]="faArrowsAltV" size="sm"></fa-icon>
+                            </th>
                             <th>Tiempo estimado</th>
-                            <th>Puntaje</th>
-                            <th>Recorrida por</th>
+                            <th class="sortColumn" [mdbTableSort]="rutas" sortBy="puntaje">
+                                <span style="padding-right: 3px">Puntaje</span>
+                                <fa-icon [icon]="faArrowsAltV" size="sm"></fa-icon>
+                            </th>
+                            <th class="sortColumn" [mdbTableSort]="rutas" sortBy="usuarios">
+                                <span style="padding-right: 3px">Recorrida por</span>
+                                <fa-icon [icon]="faArrowsAltV" size="sm"></fa-icon>
+                            </th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -31,17 +75,17 @@
                             <td>{{ ruta.formato }}</td>
                             <td>{{ ruta.dificultad }}</td>
                             <td>{{ ruta.tiempo }} min</td>
-                            <ng-container *ngIf="ruta.calificacionPromedio != 0; else elsePuntaje">
-                                <td>{{ ruta.calificacionPromedio }} <fa-icon [icon]="faStar"></fa-icon></td>
+                            <ng-container *ngIf="ruta.puntaje != 0; else elsePuntaje">
+                                <td>{{ ruta.puntaje }} <fa-icon [icon]="faStar"></fa-icon></td>
                             </ng-container>
                             <ng-template #elsePuntaje>
                                 <td>Sin puntuar</td>
                             </ng-template>
-                            <ng-container *ngIf="ruta.cantUsuariosRecorrieron == 0; else elseUsuarios">
-                                <td>{{ ruta.cantUsuariosRecorrieron }} usuario</td>
+                            <ng-container *ngIf="ruta.usuarios == 0; else elseUsuarios">
+                                <td>{{ ruta.usuarios }} usuario</td>
                             </ng-container>
                             <ng-template #elseUsuarios>
-                                <td>{{ ruta.cantUsuariosRecorrieron }} usuarios</td>
+                                <td>{{ ruta.usuarios }} usuarios</td>
                             </ng-template>
                             <td>
                                 <button type="button" class="btn btn-sm btn-default btn-rounded" (click)="view(ruta)">Detalle</button>
