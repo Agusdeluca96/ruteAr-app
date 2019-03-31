@@ -14,7 +14,7 @@ export class RutaNewComponent implements OnInit {
 
     constructor(private rutaService: RutaService, private actividadService: ActividadService, private router: Router) { }
 
-    ruta = new Ruta('', '', '', '', '', '', '', '', '', '', '', '', [], [], [], '', new User());
+    ruta = new Ruta('', '', '', '', '', '', '', '', '', '', '', '', [], [], [], new Actividad(), new User());
     submitted = false;
     dificultades = ['FACIL', 'MODERADO', 'DIFICIL', 'MUY_DIFICIL', 'SOLO_EXPERTOS'];
     formatos = ['SOLO_IDA', 'CIRCULAR'];
@@ -45,7 +45,6 @@ export class RutaNewComponent implements OnInit {
                         this.rutaService.addFoto(foto, this.ruta.id).subscribe(
                             data => {},
                             error => {
-                                console.log("Errora");
                                 this.errorCreacionRuta = true;
                             }
                         );
@@ -55,7 +54,6 @@ export class RutaNewComponent implements OnInit {
                     this.rutaService.addRecorrido(this.recorrido, this.ruta.id).subscribe(
                         data => {},
                         error => {
-                            console.log("Errorb");
                             this.errorCreacionRuta = true;
                         }
                     );
@@ -69,12 +67,10 @@ export class RutaNewComponent implements OnInit {
                     });
                     this.router.navigate(['home/ruta/view', this.ruta.id])
                 } else {
-                    console.log("Errorc");
                     this.rutaService.delete(this.ruta.id).subscribe();
                 }
             },
             error => {
-                console.log("Error");
                 swal({
                     type: 'error',
                     title: 'Ha ocurrido un error!',
@@ -169,5 +165,4 @@ export class RutaNewComponent implements OnInit {
             }
         });
     }
-
 }
