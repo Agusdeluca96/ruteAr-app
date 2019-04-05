@@ -34,7 +34,7 @@ export class RutaViewComponent implements OnInit {
                 this.ruta.fecha = rutaDate.getDate() + '/' + (rutaDate.getMonth() + 1) + '/' + rutaDate.getFullYear();
                 this.renderKmlMap(id);
             },
-            error => console.log(error));
+            error => error);
     }
 
     update() {
@@ -60,7 +60,8 @@ export class RutaViewComponent implements OnInit {
                             title: 'Ruta eliminada!',
                             showConfirmButton: false,
                             timer: 2000
-                        }).then((result) => window.location.href = (environment.url + 'home/ruta/listAgregadas/'))
+                        }).then((result) => this.router.navigate(['home/ruta/listAgregadas'])
+)
                     },
                     error => swal({
                         type: 'error',
@@ -88,7 +89,8 @@ export class RutaViewComponent implements OnInit {
         let maps = new google.maps.Map(this.gmapElement.nativeElement);
 
         this.map = new google.maps.KmlLayer({
-            url: environment.api_url + 'ruta/' + id + '/kml',
+            url: 'http://java.linti.unlp.edu.ar/jyaa_2018_grupo08_final/api/ruta/5/kml',
+            // url: environment.api_url + 'ruta/' + id + '/kml',
             map: maps
         });
     }

@@ -29,7 +29,7 @@
                         <label for="formato">
                             Formato
                         </label>
-                        <ng-container *ngIf="ruta.usuarios == 1; else elseRutaYaRecorrida">
+                        <ng-container *ngIf="ruta.usuarios == '1'; else elseRutaYaRecorrida">
                             <select class="custom-select d-block w-100" id="formato" ng-value="ruta.formato" required [ngModel]="ruta?.formato" (ngModelChange)="ruta.formato = $event"
                                 name="formato">
                                 <option *ngFor="let formato of formatos" [value]="formato">{{formato}}</option>
@@ -48,7 +48,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row" *ngIf="ruta.usuarios == 1">
+                <div class="row" *ngIf="ruta.usuarios == '1'">
                     <div class="col-md-4 mb-3">
                         <label for="inputRecorrido">Modificar recorrido</label>
                         <input type="file" class="form-control-file" id="inputRecorrido" name="inputRecorrido" (change)="uploadRecorrido($event)"
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <ng-container *ngIf="ruta.usuarios == 1; else elseRutaYaRecorrida2;">
+                <ng-container *ngIf="ruta.usuarios == '1'; else elseRutaYaRecorrida2;">
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="actividad">Actividad</label>

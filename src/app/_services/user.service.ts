@@ -61,7 +61,6 @@ export class UserService {
         if (dificultad != '') {
             params = params.set('dificultad', dificultad);
         }
-        console.log(params.get('actividad'));
         return this.http.get<Ruta[]>(environment.api_url + 'usuario/' + user.id.toString() + '/rutasDescubrir', { params: params });
     }
 

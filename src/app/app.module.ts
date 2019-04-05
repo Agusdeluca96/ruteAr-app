@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'ng-select';
+
+// Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +33,6 @@ import { RutasAgregadasComponent } from './rutas-agregadas/rutas-agregadas.compo
 import { RutasRecorridasComponent } from './rutas-recorridas/rutas-recorridas.component';
 import { RutasDescubrirComponent } from './rutas-descubrir/rutas-descubrir.component';
 
-
 // Helpers
 import { JwtInterceptor } from './_helpers';
 import { ErrorInterceptor } from './_helpers';
@@ -40,7 +42,9 @@ import { AuthGuard } from './_guards';
 
 // Icons
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+// Google Maps API
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 @NgModule({
     declarations: [
@@ -68,7 +72,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         SelectModule,
         FontAwesomeModule,
         NgbModule.forRoot(),
-        MDBBootstrapModule.forRoot()
+        MDBBootstrapModule.forRoot(),
+        AgmCoreModule.forRoot({ apiKey: 'AIzaSyBPwz_Bk0e4hHPbUKf1fuJaINJAqnBGcRE' }), 
     ],
     providers: [
         AuthGuard,
@@ -78,6 +83,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         RutaService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        GoogleMapsAPIWrapper, 
     ],
     bootstrap: [
         AppComponent

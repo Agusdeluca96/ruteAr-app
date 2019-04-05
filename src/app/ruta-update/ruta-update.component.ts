@@ -80,8 +80,8 @@ export class RutaUpdateComponent implements OnInit {
                         type: 'success',
                         title: 'Ruta modificada con exito!',
                         showConfirmButton: false,
-                        timer: 2000
-                    }).then((result) => window.location.href = (environment.url + 'home/ruta/view/' + this.ruta.id));
+                        timer: 2500
+                    }).then((result) => this.router.navigate(['home/ruta/listAgregadas']));
                 } else {
                     swal({
                         type: 'error',

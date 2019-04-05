@@ -34,7 +34,6 @@ export class RutaService {
 
     /** POST: update a Ruta to the database */
     update(ruta: Ruta, id: number): Observable<Ruta> {
-        console.log(ruta);
         return this.http.put<Ruta>(environment.api_url + 'ruta/' + id.toString(), ruta, httpOptions);
     }
 

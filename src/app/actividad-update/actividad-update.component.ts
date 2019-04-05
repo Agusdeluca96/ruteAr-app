@@ -22,7 +22,7 @@ export class ActividadUpdateComponent implements OnInit {
         let id = parseInt(this.route.snapshot.paramMap.get('id'));
         this.actividadService.find(id).subscribe(
             data => this.actividad = data,
-            error => console.log(error));
+            error => error);
     }
 
     onSubmit(form) {

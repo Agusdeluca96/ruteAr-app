@@ -131,7 +131,6 @@ export class RutasDescubrirComponent implements OnInit {
     }
 
     changeFiltroActividad(id) {
-        console.log(id)
         this.filtroActividad = id;
     }
     

@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="puntaje">Puntaje Promedio</label>
-                        <ng-container *ngIf="ruta.puntaje != 0; else elsePuntaje">
+                        <ng-container *ngIf="ruta.puntaje != '0'; else elsePuntaje">
                             <input type="text" class="form-control" id="puntaje" value="{{ruta.puntaje}}" disabled>
                         </ng-container>
                         <ng-template #elsePuntaje>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="cantUsuariosRealizaron">Recorrida por</label>
-                        <ng-container *ngIf="ruta.usuarios == 1; else elseUsuario">
+                        <ng-container *ngIf="ruta.usuarios == '1'; else elseUsuario">
                             <input type="text" class="form-control" id="cantUsuariosRealizaron" value="{{ruta.usuarios}} usuario" disabled>
                         </ng-container>
                         <ng-template #elseUsuario>
